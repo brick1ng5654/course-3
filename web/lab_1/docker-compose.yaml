@@ -1,10 +1,15 @@
 version: '3.8'
 services:
+  #Контейнер web-service
   web-service:
+    #Образ nginx 
     image: nginx:alpine
+    #Имя контейнера, которое будет после запуска этого контейнера
     container_name: my-server
+    #Пробрасываем на порты 80
     ports:
       - "80:80"
+    #Монтируем тома(нашу папку src в подпапки каталога nginx)
     volumes:
       - ./src:/usr/share/nginx/html/src
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
