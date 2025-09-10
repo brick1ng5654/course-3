@@ -1,0 +1,9 @@
+services:
+  web:
+    image: nginx:alpine
+    container_name: con_1
+    ports:
+      - 80:80
+    volumes:
+       - ./:/usr/share/nginx/html
+       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
