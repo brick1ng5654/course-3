@@ -1,1 +1,51 @@
-.btn { margin: 20px; padding: 15px; }
+.header {
+	font-size: 24px;
+	line-height: 1.5;
+	margin-bottom: 60px;
+}
+.section {
+	padding: 120px 0;
+
+}
+
+.header span {
+	display: block;
+}
+
+.form-header,.section-header {
+	font-size: 20px;
+	font-weight: 900;
+	margin-bottom: 40px;
+}
+
+.form {
+	border: 5px solid #2727d9;
+	padding: 35px 20px;
+}
+
+.form-btn {
+	margin-top: 10px ;
+	background-color: #2727d9;
+}
+
+.form input {
+margin-top: 10px;
+}
+
+.feature-box {
+margin-top: 80px;
+}
+
+
+
+.client {
+	font-weight: 900;
+	margin-bottom: 100px;
+	margin-top: 50px;
+ text-align: center;
+}
+
+.form {
+	text-align: center;
+}
+

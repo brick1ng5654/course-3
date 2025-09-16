@@ -1,9 +1,28 @@
 services:
+#Объявление контейнер
   web:
+  #Образ, который будет использоваться
     image: nginx:alpine
+    #Имя контейнера
     container_name: con_1
+    # Проброс портов: порт 80 хоста → порт 80 контейнера
     ports:
       - 80:80
+    #В какую часть памяти будет произведен маппинг проекта
     volumes:
        - ./src:/usr/share/nginx/html
        - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+
+#Объявление контейнер
+  nodeapp:
+    #Указывает Docker собрать образ из DockerFile по пути /Server
+    build: ./Server
+    #Имя контейнера
+    container_name: nodeapp
+    #В какую часть памяти будет произведен маппинг проекта
+    volumes:
+    - ./server:/app
+    - /app/node_modules
+    # Проброс портов: порт 3000 хоста → порт 3000 контейнера
+    ports:
+    - "3000:3000"
