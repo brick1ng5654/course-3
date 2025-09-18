@@ -1,0 +1,43 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Movies — Lab 3 (simple)</title>
+<h1>Movie search</h1>
+
+<form id="f">
+  <label>Title contains: <input name="q" placeholder="Enter the name"></label>
+  <button>Search</button>
+</form>
+
+<pre id="out">Results will appear here…</pre>
+
+<p>
+  API hello: <span id="hello">loading…</span><br>
+  Config: <code id="cfg">loading…</code><br>
+  Docs: <a href="/docs/" target="_blank">/docs/</a>
+</p>
+
+<script>
+  function getJSON(url, cb){
+    fetch(url,{headers:{Accept:'application/json'}})
+      .then(function(r){ return r.json(); })
+      .then(function(d){ cb(null,d); })
+      .catch(function(e){ cb(e); });
+  }
+
+  document.getElementById('f').addEventListener('submit', function(e){
+    e.preventDefault();
+    var qs = new URLSearchParams(new FormData(this)).toString();
+    getJSON('/api/search?'+qs, function(err, data){
+      document.getElementById('out').textContent = err
+        ? ('API error: '+err.message)
+        : JSON.stringify(data, null, 2);
+    });
+  });
+
+  getJSON('/api/hello', function(err, d){
+    document.getElementById('hello').textContent = err ? 'error' : d.message;
+  });
+  getJSON('/api/config', function(err, d){
+    document.getElementById('cfg').textContent = err ? '{}' : JSON.stringify(d);
+  });
+</script>
