@@ -1,6 +1,5 @@
 const express = require('express');
 const path = require('path');
-
 /**
  * Экземпляр Express приложения
  * 
@@ -21,7 +20,7 @@ const PORT = process.env.PORT || 3000;
 const API_PREFIX = process.env.API_PREFIX || '${API_PREFIX}';
 
 //Serve static files
-app.use(express.static(path.join(__dirname)));
+app.use(express.static(path.join(__dirname, '/public')));
 app.use(express.json());
 
 /**
@@ -35,6 +34,33 @@ let items = [
     { id: 1, name: 'Пример элемента 1', value: 100},
     { id: 2, name: 'Пример элемента 2', value: 200}
 ]
+
+app.get('/css', express.static(path.join(__dirname, '/public/css')))
+//Главная страница
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, '/public/views/index.html'));
+});
+
+//Страница со всеми элементавми
+app.get('/view-all', (req, res) => {
+    res.sendFile(path.join(__dirname, '/public/views/view-all.html'));
+});
+
+//Страница с конкретным элементом
+app.get('/view-item', (req, res) => {
+    res.sendFile(path.join(__dirname, '/public/views/view-item.html'));
+});
+
+//Страница создания элемента
+app.get('/create-item', (req, res) => {
+    res.sendFile(path.join(__dirname, '/public/views/create-item.html'));
+});
+
+//Страница системной информации
+app.get('/system-info', (req, res) => {
+    res.sendFile(path.join(__dirname, '/public/views/system-info.html'));
+});
+
 
 /**
  * GET api/v1/items - Получить все эелементы

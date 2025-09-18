@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Главная - Лабораторная работа</title>
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+<body>
+    <div class="container">
+        <h1>Лабораторная работа - Web приложение</h1>
+        
+        <nav class="navigation">
+            <a href="/" class="nav-button">Главная</a>
+            <a href="/view-all" class="nav-button">Все элементы</a>
+            <a href="/create-item" class="nav-button">Создать элемент</a>
+            <a href="/system-info" class="nav-button">Системная информация</a>
+        </nav>
+
+        <div class="section">
+            <h2>Добро пожаловать!</h2>
+            <p>Выберите действие в меню навигации выше.</p>
+            <p>Текущий URL: <code id="currentUrl"></code></p>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('currentUrl').textContent = window.location.href;
+    </script>
+</body>
+</html>

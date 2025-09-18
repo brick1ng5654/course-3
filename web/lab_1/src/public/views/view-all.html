@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Все элементы - Лабораторная работа</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Все элементы</h1>
+        
+        <nav class="navigation">
+            <a href="/" class="nav-button">Главная</a>
+            <a href="/view-all" class="nav-button">Все элементы</a>
+            <a href="/create-item" class="nav-button">Создать элемент</a>
+            <a href="/system-info" class="nav-button">Системная информация</a>
+        </nav>
+
+        <div class="section">
+            <h2>Все элементы</h2>
+            <button onclick="loadItems()">Загрузить все элементы</button>
+            <button onclick="loadFilteredItems()">Элементы ≥ 150</button>
+            <pre id="itemsOutput"></pre>
+        </div>
+    </div>
+
+    <script src="/js/view-all.js"></script>
+</body>
+</html>

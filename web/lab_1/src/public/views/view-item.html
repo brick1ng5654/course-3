@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Элемент - Лабораторная работа</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Просмотр элемента</h1>
+        
+        <nav class="navigation">
+            <a href="/" class="nav-button">Главная</a>
+            <a href="/view-all" class="nav-button">Все элементы</a>
+            <a href="/create-item" class="nav-button">Создать элемент</a>
+            <a href="/system-info" class="nav-button">Системная информация</a>
+        </nav>
+
+        <div class="section">
+            <h2>Просмотр элемента по ID</h2>
+            <div class="form-group">
+                <input type="number" id="itemId" placeholder="ID элемента" value="1">
+                <button onclick="loadItem()">Загрузить элемент</button>
+            </div>
+            <pre id="itemOutput"></pre>
+        </div>
+    </div>
+
+    <script src="/js/view-item.js"></script>
+    <script>
+        // Автоматически загружаем элемент если указан ID в URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const itemId = urlParams.get('id');
+        if (itemId) {
+            document.getElementById('itemId').value = itemId;
+            setTimeout(() => loadItem(), 100);
+        }
+    </script>
+</body>
+</html>
