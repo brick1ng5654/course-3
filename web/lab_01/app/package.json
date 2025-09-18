@@ -1,0 +1,16 @@
+{
+  "name": "lab03-movies-simple",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "docs": "jsdoc server.js -d ../docs"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "dotenv": "^16.4.5"
+  },
+  "devDependencies": {
+    "jsdoc": "^4.0.2"
+  }
+}
