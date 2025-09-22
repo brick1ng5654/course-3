@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="title">Лабораторная работа</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1 data-i18n="allEl">Все элементы</h1>
+        
+        <nav class="navigation">
+            <a href="/" class="nav-button" data-i18n="homeTitle">Главная</a>
+            <a href="/view-all" class="nav-button" data-i18n="viewAllItems">Все элементы</a>
+            <a href="/create-item" class="nav-button" data-i18n="createItem">Создать элемент</a>
+            <a href="/system-info" class="nav-button" data-i18n="systemInfo">Системная информация</a>
+            <a href="/view-item" class="nav-button" data-i18n="showItemById">Показать элементы по id</a>
+        </nav>
+
+
+        <div class="section">
+            <h2 data-i18n="allEl">Все элементы</h2>
+            <button onclick="loadItems()" data-i18n="loadEls">Загрузить все элементы</button>
+            <button onclick="loadFilteredItems()" data-i18n="El150">Элементы ≥ 150</button>
+            <pre id="itemsOutput"></pre>
+        </div>
+    </div>
+
+    <script src="/js/view-all.js"></script>
+    <script src="/js/i18n.js"></script>
+</body>
+</html>

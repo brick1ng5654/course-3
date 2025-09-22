@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="title">Лабораторная работа</title>
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+    <div class="language-switcher">
+        <a href="#" data-lang="ru">Русский</a>
+        <a href="#" data-lang="en">English</a>
+    </div>
+</head>
+<body>
+    <div class="container">
+        <h1 data-i18n="title">Лабораторная работа - Web приложение</h1>
+        
+        <nav class="navigation">
+            <a href="/" class="nav-button" data-i18n="homeTitle">Главная</a>
+            <a href="/view-all" class="nav-button" data-i18n="viewAllItems">Все элементы</a>
+            <a href="/create-item" class="nav-button" data-i18n="createItem">Создать элемент</a>
+            <a href="/system-info" class="nav-button" data-i18n="systemInfo">Системная информация</a>
+            <a href="/view-item" class="nav-button" data-i18n="showItemById">Показать элементы по id</a>
+        </nav>
+
+        <div class="section">
+            <h2 data-i18n="welcome">Добро пожаловать!</h2>
+            <p data-i18n="chooseMove">Выберите действие в меню навигации выше.</p>
+            <p data-i18n="currentUrl">Текущий URL: <code id="currentUrl"></code></p>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('currentUrl').textContent = window.location.href;
+    </script>
+    <script src="/js/i18n.js"></script>
+</body>
+</html>
