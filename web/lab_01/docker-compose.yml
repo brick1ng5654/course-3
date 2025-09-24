@@ -11,7 +11,7 @@ services:
       - 2020:2020
     #В какую часть памяти будет произведен маппинг проекта
     volumes:
-       - ./src:/usr/share/nginx/custom
+       - ./custom:/usr/share/nginx/html
        - ./nginx/nginx.conf:/etc/nginx/nginx.conf
 
 #Объявление контейнер
@@ -24,6 +24,4 @@ services:
     volumes:
     - ./server:/app
     - /app/node_modules
-    # Проброс портов: порт 3000 хоста → порт 3000 контейнера
-    ports:
-    - "3000:3000"
+    
