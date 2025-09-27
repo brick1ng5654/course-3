@@ -37,15 +37,22 @@ try {
 }
 
 # === 3. Импорт в доверенные корни (Windows) ===
+$IsAdmin = ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).
+  IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
+
 try {
-  Import-Certificate -FilePath $certFile -CertStoreLocation Cert:\LocalMachine\Root | Out-Null
-  $store = 'LocalMachine\Root'
+  if ($IsAdmin) {
+    & certutil -addstore -f root $certFile | Out-Null
+    $store = 'LocalMachine\Root'
+  } else {
+    & certutil -user -addstore -f root $certFile | Out-Null
+    $store = 'CurrentUser\Root'
+  }
+  Write-Host "OK: CA установлен в $store"
 } catch {
-  Write-Warning 'Нет прав на LocalMachine\Root — ставлю в CurrentUser\Root'
-  Import-Certificate -FilePath $certFile -CertStoreLocation Cert:\CurrentUser\Root | Out-Null
-  $store = 'CurrentUser\Root'
+  Write-Warning "Не удалось добавить сертификат: $($_.Exception.Message)"
 }
-Write-Host "OK: CA установлен в $store"
+
 
 # === 4. [Опционально] Импорт в Java truststore (если используете Java-клиенты) ===
 $javaExe  = (Get-Command java.exe -ErrorAction SilentlyContinue).Source
