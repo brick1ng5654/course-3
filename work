@@ -55,23 +55,38 @@ try {
   Write-Warning "Не удалось добавить сертификат: $($_.Exception.Message)"
 }
 
-
-# === 4. (Опционально) Импорт в Java truststore ===
-$javaExe  = (Get-Command java.exe -ErrorAction SilentlyContinue).Source
+# === 4. (Опционально) Импорт в Java truststore (реальный java.home) ===
+$javaExe = (Get-Command java.exe -ErrorAction SilentlyContinue).Source
 if ($javaExe) {
-  $javaHome = (Split-Path (Split-Path $javaExe -Parent) -Parent)
-  $cands = @("$javaHome\lib\security\cacerts","$javaHome\jre\lib\security\cacerts") | Where-Object { Test-Path $_ }
-  if ($cands) {
-    $cacerts = $cands[0]
-    $keytool = Join-Path $javaHome 'bin\keytool.exe'
-    if (-not (Test-Path $keytool)) { $keytool = Join-Path (Split-Path $javaExe -Parent) 'keytool.exe' }
-    # удалить старый alias, если был
-    & $keytool -delete -alias rec_ca -keystore $cacerts -storepass changeit -noprompt 2>$null
-    # импорт
-    & $keytool -importcert -noprompt -trustcacerts -alias rec_ca -file $certFile -keystore $cacerts -storepass changeit
-    Write-Host "OK: CA добавлен в Java truststore: $cacerts"
+  # Берём настоящий java.home, а не Oracle\javapath
+  $javaHome = (& $javaExe -XshowSettings:properties -version 2>&1 |
+               Select-String 'java.home =').ToString().Split('=')[1].Trim()
+
+  $cands = @(
+    Join-Path $javaHome 'lib\security\cacerts'),
+    (Join-Path $javaHome 'jre\lib\security\cacerts')
+  $cacerts = $cands | Where-Object { Test-Path $_ } | Select-Object -First 1
+
+  if (-not $cacerts) {
+    Write-Warning "Не нашёл cacerts под $javaHome"
+  } else {
+    $keytool = (Get-Command keytool.exe -ErrorAction SilentlyContinue).Source
+    if (-not $keytool) { $keytool = Join-Path $javaHome 'bin\keytool.exe' }
+    if (-not (Test-Path $keytool)) {
+      Write-Warning "keytool.exe не найден. Установи JRE/JDK или добавь keytool в PATH."
+    } else {
+      # удалить старый alias на всякий
+      & $keytool -delete -alias rec_ca -keystore $cacerts -storepass changeit -noprompt 2>$null
+      # импорт
+      & $keytool -importcert -noprompt -trustcacerts -alias rec_ca `
+        -file 'C:\jenkins\rec_ca.crt' -keystore $cacerts -storepass changeit
+      Write-Host "OK: CA добавлен в Java truststore: $cacerts"
+    }
   }
+} else {
+  Write-Warning "java.exe не найден в PATH"
 }
+
 
 # === 5. Быстрая проверка HTTPS к Jenkins ===
 try {
