@@ -116,3 +116,94 @@ try {
   Write-Warning "Проверка HTTPS не прошла: $($_.Exception.Message)"
   Write-Warning "Для Win7 проверь наличие KB3140245 и KB4474419; после правок может потребоваться перезагрузка."
 }
+
+# Тесты
+
+$ErrorActionPreference='Stop'
+$ProgressPreference='SilentlyContinue'
+[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+
+# ---- целевые URL для iwr и TLS ----
+$targets = @(
+  'https://acme-proxy.nic.etu/',
+  'https://jenkins2.nic.etu/jnlpJars/agent.jar'
+)
+
+foreach ($url in $targets) {
+  $u = [uri]$url
+  $host = $u.Host
+  $port = if ($u.Port -gt 0) { $u.Port } else { 443 }
+
+  Write-Host "`n=== $url ==="
+
+  # 1) HEAD через Invoke-WebRequest
+  try {
+    $r = Invoke-WebRequest -Uri $url -UseBasicParsing -Method Head -TimeoutSec 20
+    Write-Host ("OK iwr: HTTP {0}" -f $r.StatusCode)
+  } catch { Write-Warning ("iwr FAIL: {0}" -f $_.Exception.Message) }
+
+  # 2) Чистое TLS-рукопожатие + проверка доверия цепочки
+  $tcp=$null; $ssl=$null
+  try {
+    $tcp = New-Object Net.Sockets.TcpClient($host,$port)
+    $ssl = New-Object Net.Security.SslStream($tcp.GetStream(),$false,({$true}))
+    $ssl.AuthenticateAsClient($host)
+
+    $proto  = $ssl.SslProtocol
+    $cipher = $ssl.CipherAlgorithm
+    $bits   = $ssl.CipherStrength
+    Write-Host "OK TLS: $proto, cipher $cipher/$bits"
+
+    $cert  = New-Object System.Security.Cryptography.X509Certificates.X509Certificate2 $ssl.RemoteCertificate
+    $chain = New-Object System.Security.Cryptography.X509Certificates.X509Chain
+    $chain.ChainPolicy.RevocationMode = 'NoCheck'
+    $trusted = $chain.Build($cert)
+    if ($trusted) { Write-Host "Trust: OK (цепочка валидна)" }
+    else {
+      Write-Warning "Trust: NOT TRUSTED"
+      $chain.ChainStatus | ForEach-Object { Write-Warning $_.StatusInformation.Trim() }
+    }
+  } catch {
+    Write-Warning ("TLS FAIL: {0}" -f $_.Exception.Message)
+  } finally {
+    if ($ssl) { $ssl.Dispose() }
+    if ($tcp) { $tcp.Close() }
+  }
+
+  # 3) certutil -ssl host:port
+  try {
+    certutil -ssl "$host:$port" | Out-Null
+    if ($LASTEXITCODE -eq 0) { Write-Host "OK certutil -ssl $host:$port" }
+    else { Write-Warning "certutil FAIL (exit $LASTEXITCODE)" }
+  } catch { Write-Warning "certutil FAIL: $($_.Exception.Message)" }
+}
+
+# ---- дополнительный тест: HEAD от git к репозиторию ----
+$repo = 'https://git.nic.etu/products/vbma_00951-01'
+$repoGit = if ($repo.ToLower().EndsWith('.git')) { $repo } else { $repo + '.git' }
+
+Write-Host "`n=== git HEAD: $repoGit ==="
+$git = (Get-Command git.exe -ErrorAction SilentlyContinue).Source
+if (-not $git) {
+  Write-Host "SKIP: git.exe не найден"
+} else {
+  # запретим интерактивные запросы паролей; заодно принудим schannel (Windows CA)
+  $env:GIT_TERMINAL_PROMPT='0'
+  $args = @('-c','http.sslbackend=schannel','ls-remote',$repoGit,'HEAD')
+  $out = & $git @args 2>&1
+  $code = $LASTEXITCODE
+
+  if ($code -eq 0) {
+    Write-Host "OK git: получен HEAD"
+    $out | Select-String 'HEAD' | ForEach-Object { $_.ToString() } | Write-Host
+  } else {
+    # если аутентификация/доступ — это всё равно TLS OK; провалим только SSL ошибки
+    if ($out -match 'SSL|certificate|schannel') {
+      Write-Warning "git TLS FAIL: $out"
+    } else {
+      Write-Host "git TLS OK (но доступ к репо отклонён):"
+      $out | Write-Host
+    }
+  }
+}
+
