@@ -1,9 +1,11 @@
+# C:\jenkins\setup-ca.ps1
 # === 0. Полезные флаги ===
 $ErrorActionPreference = 'Stop'
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+$IsAdmin = ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).
+  IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
 
 # === 1. Включаем TLS 1.2 (Win7/2008R2) ===
-# .NET strong crypto + default TLS from OS
 $dotnet = @(
  'HKLM:\SOFTWARE\Microsoft\.NETFramework\v4.0.30319',
  'HKLM:\SOFTWARE\WOW6432Node\Microsoft\.NETFramework\v4.0.30319'
@@ -24,8 +26,8 @@ New-ItemProperty 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Internet Setti
 New-Item 'HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Internet Settings\WinHttp' -Force | Out-Null
 New-ItemProperty 'HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Internet Settings\WinHttp' -Name 'DefaultSecureProtocols' -Type DWord -Value $mask -Force | Out-Null
 
-# === 2. Скачиваем корневой CA (HTTPS -> fallback на HTTP) ===
-$certDir  = 'C:\CA'
+# === 2. Скачиваем корневой CA в C:\jenkins ===
+$certDir  = 'C:\jenkins'
 $certFile = Join-Path $certDir 'rec_ca.crt'
 New-Item $certDir -ItemType Directory -Force | Out-Null
 
@@ -33,10 +35,10 @@ try {
   Invoke-WebRequest 'https://acme-proxy.nic.etu/' -OutFile $certFile -UseBasicParsing
 } catch {
   Write-Warning 'HTTPS к acme-proxy не доступен, пробую HTTP...'
-  Invoke-WebRequest 'http://acme-proxy.nic.etu/'  -OutFile $certFile -UseBasicParsing
+  Invoke-WebRequest 'http://acme-proxy.nic.etu/' -OutFile $certFile -UseBasicParsing
 }
 
-# === 3. Импорт в доверенные корни (Windows) ===
+# === 3. Импорт в доверенные корни (через certutil на Win7) ===
 $IsAdmin = ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).
   IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
 
@@ -54,7 +56,7 @@ try {
 }
 
 
-# === 4. [Опционально] Импорт в Java truststore (если используете Java-клиенты) ===
+# === 4. (Опционально) Импорт в Java truststore ===
 $javaExe  = (Get-Command java.exe -ErrorAction SilentlyContinue).Source
 if ($javaExe) {
   $javaHome = (Split-Path (Split-Path $javaExe -Parent) -Parent)
@@ -63,16 +65,19 @@ if ($javaExe) {
     $cacerts = $cands[0]
     $keytool = Join-Path $javaHome 'bin\keytool.exe'
     if (-not (Test-Path $keytool)) { $keytool = Join-Path (Split-Path $javaExe -Parent) 'keytool.exe' }
+    # удалить старый alias, если был
+    & $keytool -delete -alias rec_ca -keystore $cacerts -storepass changeit -noprompt 2>$null
+    # импорт
     & $keytool -importcert -noprompt -trustcacerts -alias rec_ca -file $certFile -keystore $cacerts -storepass changeit
     Write-Host "OK: CA добавлен в Java truststore: $cacerts"
   }
 }
 
-# === 5. Проверка HTTPS к Jenkins ===
+# === 5. Быстрая проверка HTTPS к Jenkins ===
 try {
   $r = Invoke-WebRequest 'https://jenkins2.nic.etu/jnlpJars/agent.jar' -UseBasicParsing -Method Head -TimeoutSec 20
   Write-Host "HTTPS к Jenkins OK (HTTP $($r.StatusCode))"
 } catch {
   Write-Warning "Проверка HTTPS не прошла: $($_.Exception.Message)"
-  Write-Warning "Если это Win7 без нужных патчей — проверь наличие KB3140245/KB4474419 и перезагрузись."
+  Write-Warning "Для Win7 проверь наличие KB3140245 и KB4474419; после правок может потребоваться перезагрузка."
 }
