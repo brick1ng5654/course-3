@@ -1,0 +1,22 @@
+<!doctype html>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title id="app_title">Movies</title>
+
+<div style="display:flex; gap:8px; align-items:center; margin:8px 0;">
+  <span>Lang:</span>
+  <button type="button" data-lang="en">EN</button>
+  <button type="button" data-lang="ru">RU</button>
+</div>
+
+<h1 id="h1_title">Movies</h1>
+
+<form id="search-form">
+  <input id="q" placeholder="" autocomplete="off" />
+  <button id="search_btn">Search</button>
+</form>
+
+<p id="hint"></p>
+<div id="results" style="margin-top:16px;"></div>
+
+<script src="script.js"></script>
