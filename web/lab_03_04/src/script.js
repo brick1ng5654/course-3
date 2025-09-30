@@ -31,24 +31,33 @@ var lang = (["ru","en"].indexOf(detectLang()) >= 0) ? detectLang() : "en";
 var dict = null;
 var lastIds = []; // запоминаем id текущей выдачи
 
-function loadStrings() {
-  return fetch("/i18n/" + lang + ".json")
-    .then(function(r){ return r.json(); })
-    .then(function(d){ dict = d; })
-    .catch(function(){
-      dict = (lang === "ru")
-        ? { app_title:"🎬 Фильмы", search_placeholder:"Введите название фильма…", search_button:"Искать", prompt_type_title:"Введите название фильма", no_results:"Ничего не найдено" }
-        : { app_title:"🎬 Movies", search_placeholder:"Enter movie title…", search_button:"Search", prompt_type_title:"Type a movie title", no_results:"No results" };
-    })
-    .then(function(){
-      document.title = dict.app_title;
-      var el;
-      el = $("#app_title"); if (el) el.textContent = dict.app_title;
-      el = $("#h1_title");  if (el) el.textContent = dict.app_title;
-      el = $("#search_btn"); if (el) el.textContent = dict.search_button;
-      el = $("#q"); if (el) el.placeholder = dict.search_placeholder;
-      el = $("#hint"); if (el) el.textContent = dict.prompt_type_title;
-    });
+async function loadStrings() {
+  try {
+    dict = await fetch(`/i18n/${lang}.json`).then(r => r.json());
+  } catch {
+    dict = lang === "ru"
+      ? { app_title:"🎬 Фильмы", about:"О кино", search_placeholder:"Введите название фильма…", search_button:"Искать", prompt_type_title:"Введите название фильма", no_results:"Ничего не найдено" }
+      : { app_title:"🎬 Movies", about:"About cinema", search_placeholder:"Enter movie title…", search_button:"Search", prompt_type_title:"Type a movie title", no_results:"No results" };
+  }
+
+  document.title = dict.app_title;
+
+  const map = [
+    ["#app_title", "app_title"],
+    ["#h1_title",  "app_title"],
+    ["#about",     "about"],          // ← «About cinema»
+    ["#search_btn","search_button"]
+  ];
+  for (const [sel,key] of map) {
+    const el = document.querySelector(sel);
+    if (el && dict[key]) el.textContent = dict[key];
+  }
+
+  const q = document.querySelector("#q");
+  if (q && dict.search_placeholder) q.placeholder = dict.search_placeholder;
+
+  const hint = document.querySelector("#hint");
+  if (hint && dict.prompt_type_title) hint.textContent = dict.prompt_type_title;
 }
 
 // --- Render ---
@@ -148,36 +157,36 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     // Переключение языка (кнопки с data-lang="en"/"ru")
-    var langBtns = document.querySelectorAll("[data-lang]");
-    for (var i=0; i<langBtns.length; i++) {
-      langBtns[i].addEventListener("click", function() {
-        var newLang = this.getAttribute("data-lang");
-        if (newLang === lang) return;
-        lang = newLang;
-        localStorage.setItem("lang", lang);
+    document.querySelectorAll("[data-lang]").forEach(btn => {
+    btn.addEventListener("click", async () => {
+      const newLang = btn.getAttribute("data-lang");
+      if (newLang === lang) return;
+      lang = newLang;
+      localStorage.setItem("lang", lang);
 
-        if (lastIds.length > 0) {
-          // 1) тихо берём те же фильмы в новой локали
-          runFetchByIds(lastIds).then(function(data){
-            // 2) выбираем title для адреса
-            var chosenTitle = chooseSearchTitle(data.items);
-            // 3) обновляем URL на ?lang=...&title=..., ids чистим
-            setParams({ lang: lang, title: chosenTitle, ids: "" });
-            // 4) повторяем поиск по title
-            runSearchByTitle(chosenTitle).then(function(){
-              var q = $("#q"); if (q) q.value = chosenTitle;
-            });
-          });
-        } else {
-          setParams({ lang: lang, ids: "" });
-          loadStrings().then(function(){
-            var qvEl = $("#q");
-            var qv = qvEl ? (qvEl.value || "").trim() : "";
-            if (qv) runSearchByTitle(qv);
-          });
-        }
-      });
-    }
+      // 1) Сразу обновляем UI-тексты
+      await loadStrings();
+
+      if (lastIds.length > 0) {
+        // 2) Тихо получаем те же фильмы в новой локали
+        const data = await runFetchByIds(lastIds);
+        // 3) Выбираем title для адресной строки
+        const chosenTitle = chooseSearchTitle(data.items);
+        // 4) Обновляем URL на ?lang=...&title=..., ids чистим
+        setParams({ lang, title: chosenTitle, ids: "" });
+        // 5) Повторяем поиск по title (для консистентности URL и выдачи)
+        await runSearchByTitle(chosenTitle);
+        const q = document.querySelector("#q");
+        if (q) q.value = chosenTitle;
+      } else {
+        // Нет результатов — просто сменили язык, UI уже обновлён
+        setParams({ lang, ids: "" });
+        const qv = (document.querySelector("#q")?.value || "").trim();
+        if (qv) await runSearchByTitle(qv);
+      }
+    });
+  });
+
 
     // Поиск по форме
     var form = $("#search-form");
