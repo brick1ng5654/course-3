@@ -13,6 +13,10 @@ services:
     volumes:
        - ./custom:/usr/share/nginx/html
        - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - nodeapp  # ✅ Ждем запуска nodeapp
+    networks:
+      - app-network  # ✅ Общая сеть
 
 #Объявление контейнер
   nodeapp:
@@ -20,8 +24,19 @@ services:
     build: ./Server
     #Имя контейнера
     container_name: nodeapp
+
+    ports:
+    - "3000:3000"
     #В какую часть памяти будет произведен маппинг проекта
     volumes:
     - ./server:/app
     - /app/node_modules
+    environment:
+      - NODE_ENV=production
+    networks:
+      - app-network  # ✅ Общая сеть
+
+networks:
+  app-network:
+    driver: bridge
     
