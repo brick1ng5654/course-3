@@ -1,0 +1,27 @@
+version: '3.8'
+services:
+  app:
+    build: .
+    ports:
+      - 3000:3000
+    environment:
+      - API_PREFIX=/api/v1
+    volumes:
+      - ./src:/app/src
+      - /app/src/node_modules
+  #Контейнер web-service
+  nginx:
+    image: nginx:alpine
+    container_name: my-server
+    ports:
+      - "80:80"
+    volumes:
+      - ./src:/usr/share/nginx/html/src
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - app
+    
+  tomcat:
+    build: ./java-backend/
+    ports:
+      - "8081:8080"
