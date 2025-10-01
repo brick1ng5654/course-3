@@ -21,8 +21,6 @@ function pickLang(req) {
   if (req.query.lang) return normLang(req.query.lang);
   const cookie = (req.headers.cookie || "").match(/(?:^|;\s*)lang=([a-z\-]+)/i)?.[1];
   if (cookie) return normLang(cookie);
-  const al = req.headers["accept-language"];
-  if (al) return normLang(al.split(",")[0]);
   return DEFAULT_LANG;
 }
 
@@ -42,7 +40,6 @@ function loadMovies(lang) {
 }
 
 function parseIdsParam(ids) {
-  // "1,2,3" -> [1,2,3] без NaN, без дублей, с сохранением порядка
   const seen = new Set();
   const out = [];
   String(ids).split(",").forEach(s => {

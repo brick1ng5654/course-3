@@ -35,9 +35,9 @@ async function loadStrings() {
   try {
     dict = await fetch(`/i18n/${lang}.json`).then(r => r.json());
   } catch {
-    dict = lang === "ru"
-      ? { app_title:"🎬 Фильмы", about:"О кино", search_placeholder:"Введите название фильма…", search_button:"Искать", prompt_type_title:"Введите название фильма", no_results:"Ничего не найдено" }
-      : { app_title:"🎬 Movies", about:"About cinema", search_placeholder:"Enter movie title…", search_button:"Search", prompt_type_title:"Type a movie title", no_results:"No results" };
+    dict = (lang === "ru")
+      ? { app_title: "Около Кино", search_placeholder: "Введите название фильма…", search_button: "Искать", no_results: "Ничего не найдено" }
+      : { app_title: "About movies", search_placeholder: "Enter movie title…", search_button: "Search", no_results: "No results" };
   }
 
   document.title = dict.app_title;
@@ -45,19 +45,15 @@ async function loadStrings() {
   const map = [
     ["#app_title", "app_title"],
     ["#h1_title",  "app_title"],
-    ["#about",     "about"],          // ← «About cinema»
     ["#search_btn","search_button"]
   ];
-  for (const [sel,key] of map) {
+  for (const [sel, key] of map) {
     const el = document.querySelector(sel);
-    if (el && dict[key]) el.textContent = dict[key];
+    if (el && dict[key] !== undefined) el.textContent = dict[key];
   }
 
   const q = document.querySelector("#q");
   if (q && dict.search_placeholder) q.placeholder = dict.search_placeholder;
-
-  const hint = document.querySelector("#hint");
-  if (hint && dict.prompt_type_title) hint.textContent = dict.prompt_type_title;
 }
 
 // --- Render ---
@@ -82,46 +78,21 @@ function render(items) {
   lastIds = items.map(function(m){ return m.id; });
 }
 
-// --- Вспомогалка: выбрать title на новой локали для адресной строки ---
+// --- выбрать title на новой локали для адресной строки ---
 function chooseSearchTitle(items) {
   if (!Array.isArray(items) || items.length === 0) return "";
-  if (items.length === 1) return items[0].title || "";
-
-  function tokenize(t) {
-    return String(t || "")
-      .toLowerCase()
-      .replace(/[^a-zа-яё0-9\s-]+/gi, " ")
-      .split(/\s+/)
-      .filter(function(w){ return w.length >= 3; });
-  }
-
-  var tokenSets = items.map(function(m){ return new Set(tokenize(m.title)); });
-  var common = Array.from(tokenSets[0]);
-  for (var i = 1; i < tokenSets.length; i++) {
-    common = common.filter(function(tok){ return tokenSets[i].has(tok); });
-    if (common.length === 0) break;
-  }
-  if (common.length > 0) {
-    common.sort(function(a,b){ return b.length - a.length; });
-    return common[0];
-  }
   return items[0].title || "";
 }
 
 // --- API runners ---
 function runSearchByTitle(title) {
   if (!title) {
-    var hint = $("#hint");
-    if (hint) hint.textContent = (dict ? (dict.prompt_type_title || "Type a movie title") : "Type a movie title");
-    $("#results").innerHTML = "";
+    document.querySelector("#results").innerHTML = "";
     lastIds = [];
     return Promise.resolve();
   }
-  return api("/api/movies?title=" + encodeURIComponent(title) + "&lang=" + lang)
-    .then(function(data){
-      var hint = $("#hint"); if (hint) hint.textContent = "";
-      render(data.items);
-    });
+  return api(`/api/movies?title=${encodeURIComponent(title)}&lang=${lang}`)
+    .then(data => { render(data.items); });
 }
 
 function isFiniteNumber(n){ return typeof n === "number" && isFinite(n); }
