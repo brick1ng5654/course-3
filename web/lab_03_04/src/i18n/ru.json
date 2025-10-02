@@ -1,7 +1,6 @@
 {
   "app_title": "Около Кино",
-  "search_placeholder": "Введите название фильма…",
+  "search_placeholder": "Название",
   "search_button": "Искать",
-  "prompt_type_title": "Название",
   "no_results": "Ничего не найдено"
 }
