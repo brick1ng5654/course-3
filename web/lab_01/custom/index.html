@@ -49,7 +49,7 @@
                             <div class="card shadow-sm">
                                 <div class="card-body p-0">
                                     <div class="ratio ratio-16x9">
-                                        <iframe src="https://www.youtube.com/embed/2xomWWncop0?si=9LDYeNgH9TGFQZJ1" 
+                                        <iframe src="" 
                                                 title="YouTube video player" 
                                                 frameborder="0" 
                                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
@@ -67,28 +67,29 @@
                                     <h5 data-i18n="TitleForm" class="mb-0 fw-bold">Введите свой email</h5>
                                 </div>
                                 <div class="card-body p-4">
-                                    <form action="/process" method="GET">
+                                    <form id="authForm">
                                         <input type="hidden" name="lang" id="langInput" value="ru">
                                         
                                         <div class="mb-3">
                                             <input type="text" 
-                                                   class="form-control form-control-lg" 
-                                                   placeholder="Ваше имя" 
-                                                   id="name" 
-                                                   name="name"
-                                                   data-i18n-placeholder="nameLabel"
-                                                   required>
+                                                class="form-control form-control-lg" 
+                                                placeholder="Ваше имя" 
+                                                id="name" 
+                                                name="name"
+                                                data-i18n-placeholder="nameLabel"
+                                                required>
                                         </div>
                                         
                                         <div class="mb-3">
                                             <input type="email" 
-                                                   class="form-control form-control-lg" 
-                                                   placeholder="Ваш email"
-                                                   id="email"
-                                                   name="email"
-                                                   data-i18n-placeholder="emailLabel"
-                                                   required>
+                                                class="form-control form-control-lg" 
+                                                placeholder="Ваш email"
+                                                id="email"
+                                                name="email"
+                                                data-i18n-placeholder="emailLabel"
+                                                required>
                                         </div>
+                                        
                                         <div class="mb-3">
                                             <input type="number" 
                                                 class="form-control form-control-lg" 
@@ -98,12 +99,36 @@
                                                 data-i18n-placeholder="ageLabel"
                                                 min="1" max="120">
                                         </div>
+
+                                        <!--  ДОБАВЛЯЕМ ВЫБОР ЦВЕТА -->
+                                        <div class="mb-3">
+                                            <label class="form-label fw-bold">Выберите цвет оформления:</label>
+                                            <select class="form-select form-select-lg" name="color" required>
+                                                <option value="text-primary"> Синий</option>
+                                                <option value="text-success">Зеленый</option>
+                                                <option value="text-danger">Красный</option>
+                                                <option value="text-warning">Оранжевый</option>
+                                                <option value="text-purple">Фиолетовый</option>
+                                            </select>
+                                        </div>
                                         
+                                        <!--  КНОПКА АВТОРИЗАЦИИ -->
+                                        <div class="mb-3">
+                                            <button type="button" 
+                                                    id="authButton"
+                                                    class="btn btn-warning btn-lg w-100 py-3 fw-bold">
+                                                 Авторизоваться для доступа
+                                            </button>
+                                        </div>
+                                        
+                                        <!-- СКРЫТАЯ КНОПКА ОТПРАВКИ -->
                                         <div class="d-grid">
                                             <button type="submit" 
-                                                    class="btn btn-success btn-lg fw-bold py-3"
-                                                    data-i18n="ButtonForm">
-                                                получить инструкцию
+                                                    id="submitBtn"
+                                                    class="btn btn-secondary btn-lg fw-bold py-3"
+                                                    data-i18n="ButtonForm"
+                                                    disabled>
+                                                получить инструкцию (требуется авторизация)
                                             </button>
                                         </div>
                                     </form>
@@ -256,6 +281,61 @@
         </div>
     </footer>
 
+ <!-- 🔐 Модальное окно авторизации -->
+    <div class="modal fade" id="authModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title">🔐 Авторизация</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">Логин:</label>
+                        <input type="text" class="form-control" id="authLogin" placeholder="Введите логин">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Пароль:</label>
+                        <input type="password" class="form-control" id="authPassword" placeholder="Введите пароль">
+                    </div>
+                    <div class="alert alert-info">
+                        <strong>Тестовые данные:</strong><br>
+                        • admin / password123<br>
+                        • user / user123<br>
+                        • test / test123
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+                    <button type="button" class="btn btn-primary" onclick="performAuth()">Войти</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+  <!-- Сначала auth.js -->
+    <script src="js/auth.js"></script>
+    <!-- Потом Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Локализация -->
+    <script src="js/script.js"></script>
+    
+    <!-- 🔍 Диагностика -->
+    <script>
+        console.log('🔍 Проверка загрузки скриптов:');
+        console.log('showAuthModal exists:', typeof showAuthModal);
+        console.log('authButton exists:', !!document.getElementById('authButton'));
+        
+        // Проверяем загрузку auth.js
+        if (typeof showAuthModal === 'undefined') {
+            console.error('❌ auth.js не загрузился!');
+        } else {
+            console.log('✅ auth.js загружен');
+        }
+    </script>
+
+
+
 <script>
 // Локализация - встроенный код
 console.log('=== Локализация запущена ===');
@@ -352,7 +432,7 @@ console.log('Функция switchLanguage:', typeof window.switchLanguage);
 
 
 
-
+   
 
 	
 

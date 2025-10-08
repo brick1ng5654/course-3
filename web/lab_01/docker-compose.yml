@@ -7,12 +7,13 @@ services:
     container_name: con_1
     # Проброс портов: порт 80 хоста → порт 80 контейнера
     ports:
-      - 80:80
-      - 2020:2020
+      - "80:80"    # HTTP редирект
+      - "443:443"  # 🔒 HTTPS
     #В какую часть памяти будет произведен маппинг проекта
     volumes:
        - ./custom:/usr/share/nginx/html
        - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+       - ./nginx/ssl:/etc/nginx/ssl
     depends_on:
       - nodeapp  # ✅ Ждем запуска nodeapp
     networks:
