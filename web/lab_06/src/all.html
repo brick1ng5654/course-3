@@ -1,0 +1,109 @@
+<!doctype html>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title id="doc_title">Все фильмы</title>
+<link rel="stylesheet" href="/style.css" />
+
+<div class="container">
+  <div class="header">
+    <h1 id="h1_title" style="margin:0;">Все фильмы</h1>
+    <a class="brand" id="brand_home" href="/">На главную</a>
+  </div>
+
+  <div class="toolbar">
+    <span class="muted" id="label_lang">Язык:</span>
+    <button class="langbtn" data-lang="ru" id="btnRU">RU</button>
+    <button class="langbtn" data-lang="en" id="btnEN">EN</button>
+    <a class="btn" id="nav_add" href="/add.html" style="margin-left:auto;">Добавить фильм</a>
+  </div>
+
+  <div id="results" class="grid"></div>
+</div>
+
+<script>
+(function(){
+  const $ = s=>document.querySelector(s);
+  const box = document.querySelector('#results');
+  function getParam(n){return new URLSearchParams(location.search).get(n)||""}
+  function setParams(obj, replace=false){
+    const url = new URL(location.href);
+    Object.keys(obj).forEach(k=>{
+      const v=obj[k];
+      if(v===null||v===undefined||v==="") url.searchParams.delete(k);
+      else url.searchParams.set(k,v);
+    });
+    history[replace?'replaceState':'pushState'](null,"",url);
+  }
+  function getCurrentLang(){
+    const fromUrl=getParam('lang'); if(["ru","en"].includes(fromUrl)) return fromUrl;
+    const fromLs=localStorage.getItem('lang'); if(["ru","en"].includes(fromLs)) return fromLs;
+    const nav=(navigator.language||'en').slice(0,2); return ["ru","en"].includes(nav)?nav:'en';
+  }
+  async function loadStrings(){
+    const lang=getCurrentLang();
+    try{
+      window.__i18n = await fetch(`/i18n/${lang}.json?v=6`,{cache:'no-store'}).then(r=>r.json());
+    }catch{
+      window.__i18n = (lang==='ru')?{
+        brand_home:'На главную', all_title:'Все фильмы', label_lang:'Язык:', nav_add:'Добавить фильм',
+        all_empty:'Пусто', all_loading:'Загружаю…', label_genres:'Жанры:', label_director:'Режиссёр:', label_rating:'Рейтинг:', label_id:'ID:'
+      }:{
+        brand_home:'Home', all_title:'All movies', label_lang:'Lang:', nav_add:'Add movie',
+        all_empty:'Empty', all_loading:'Loading…', label_genres:'Genres:', label_director:'Director:', label_rating:'Rating:', label_id:'ID:'
+      };
+    }
+    document.title = window.__i18n.all_title || window.__i18n.app_title || document.title;
+    [["#doc_title","all_title"],["#h1_title","all_title"],["#brand_home","brand_home"],["#label_lang","label_lang"],["#nav_add","nav_add"]]
+      .forEach(([sel,key])=>{ const el=document.querySelector(sel); if(el&&window.__i18n[key]!=null) el.textContent=window.__i18n[key]; });
+  }
+  function setActiveButtons(lang){
+    $("#btnRU").classList.toggle("active", lang==="ru");
+    $("#btnEN").classList.toggle("active", lang==="en");
+  }
+  function card(m){const t=window.__i18n||{};return `
+    <div class="card">
+      <h3>${m.title} <small class="meta">(${m.year ?? '-'})</small></h3>
+      <div class="meta"><b>${t.label_genres||'Genres:'}</b> ${(m.genres||[]).join(', ')}</div>
+      <div class="meta"><b>${t.label_director||'Director:'}</b> ${m.director || '-'}</div>
+      <div class="meta"><b>${t.label_rating||'Rating:'}</b> ${m.rating ?? '-'}</div>
+      <div class="meta"><b>${t.label_id||'ID:'}</b> ${m.id}</div>
+    </div>`}
+  function render(items){
+    if(!Array.isArray(items)||items.length===0){ box.innerHTML=`<p class="muted">${(window.__i18n&&window.__i18n.all_empty)||'Empty'}</p>`; return; }
+    box.innerHTML = items.map(card).join('');
+  }
+  async function loadAll(lang, {replace=false}={}){
+    await loadStrings();
+    setActiveButtons(lang);
+    setParams({lang}, replace);
+    box.innerHTML = `<div class="card"><span class="muted">${(window.__i18n&&window.__i18n.all_loading)||'Loading…'}</span></div>`;
+    try{
+      const r = await fetch(`/api/movies/all?lang=${encodeURIComponent(lang)}`);
+      const data = await r.json().catch(()=>({}));
+      if(!r.ok) throw new Error(data.error || `HTTP ${r.status}`);
+      render(data.items);
+    }catch(e){ box.innerHTML = `<div class=\"card status err\">${e.message}</div>`; }
+  }
+  document.addEventListener("DOMContentLoaded", ()=>{
+    const lang = getCurrentLang();
+    if(getParam('lang')!==lang) setParams({lang}, true);
+    localStorage.setItem('lang', lang);
+    setActiveButtons(lang);
+    loadAll(lang, {replace:true});
+    document.querySelectorAll(".langbtn").forEach(btn=>{
+      btn.addEventListener("click", ()=> {
+        const newLang = btn.getAttribute("data-lang");
+        if(!newLang || newLang===getCurrentLang()) return;
+        localStorage.setItem('lang', newLang);
+        setParams({lang:newLang}, true);
+        loadAll(newLang);
+      });
+    });
+  });
+  window.addEventListener("popstate", ()=>{
+    const l=getParam('lang')||getCurrentLang();
+    localStorage.setItem('lang', l);
+    loadAll(l, {replace:true});
+  });
+})();
+</script>

@@ -1,0 +1,128 @@
+/* ===== Base / Theme ======================================================= */
+:root{
+  --bg: #ffffff;
+  --fg: #0f1115;
+  --muted: #6b7280;
+  --border: #e5e7eb;
+  --accent: #111827;
+  --accent-fg: #ffffff;
+  --card: #ffffff;
+  --ring: 0 0 0 3px rgba(59,130,246,.35);
+  --radius: 12px;
+  --shadow: 0 6px 24px rgba(0,0,0,.06);
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg: #0b0d12;
+    --fg: #e5e7eb;
+    --muted: #9ca3af;
+    --border: #1f2430;
+    --accent: #3b82f6;
+    --accent-fg: #0b0d12;
+    --card: #0f141d;
+    --shadow: 0 8px 28px rgba(0,0,0,.35);
+  }
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0; background:var(--bg); color:var(--fg); font:16px/1.45 system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif;
+}
+
+/* ===== Layout ============================================================= */
+.container{
+  max-width: 950px; margin: 24px auto; padding: 0 16px;
+}
+.header{
+  display:flex; align-items:center; gap:12px; margin: 8px 0 18px;
+}
+.brand{
+  font-weight: 700; letter-spacing:.3px; color:var(--fg); text-decoration:none;
+}
+.brand:hover{ text-decoration:underline }
+
+.toolbar{
+  display:flex; gap:12px; align-items:center; flex-wrap:wrap;
+  margin: 12px 0 16px;
+}
+
+.grid{ display:grid; grid-template-columns: 1fr; gap:12px; }
+@media (min-width:700px){ .grid{ grid-template-columns: repeat(2, 1fr); }}
+
+/* ===== Buttons / Inputs =================================================== */
+.btn, .langbtn{
+  display:inline-flex; align-items:center; justify-content:center;
+  height:40px; padding:0 14px; border:1px solid var(--border);
+  border-radius: var(--radius);
+  background: linear-gradient(180deg, rgba(255,255,255,.02), rgba(0,0,0,.02));
+  color:var(--fg); cursor:pointer; text-decoration:none; transition:.15s ease;
+}
+.btn:hover, .langbtn:hover{ transform: translateY(-1px); box-shadow: var(--shadow); }
+.btn:focus-visible, .langbtn:focus-visible{ outline: none; box-shadow: var(--ring); }
+.langbtn.active{
+  background: var(--accent); border-color: var(--accent);
+  color: var(--accent-fg);
+}
+.btn.primary{
+  background: var(--accent); border-color: var(--accent); color: var(--accent-fg);
+}
+.input, input[type="text"], input[type="number"]{
+  width:100%; height:40px; padding:0 12px; border:1px solid var(--border);
+  border-radius: var(--radius); background:var(--card); color:var(--fg);
+}
+.input:focus, input[type="text"]:focus, input[type="number"]:focus{
+  outline:none; box-shadow: var(--ring); border-color: transparent;
+}
+
+/* ===== Cards =============================================================== */
+.card{
+  border:1px solid var(--border);
+  background: var(--card);
+  border-radius: var(--radius);
+  padding:14px 14px 12px;
+  box-shadow: var(--shadow);
+}
+.card h3{ margin: 0 0 6px; font-size: 18px; }
+.meta{ color: var(--muted); font-size: 13px; }
+
+/* ===== Form =============================================================== */
+.form{
+  display:grid; gap:12px; max-width: 560px;
+}
+.form label{ display:block; font-size: 14px; color: var(--muted); margin-bottom:6px; }
+.form .row{ display:grid; gap:12px; grid-template-columns: 1fr 1fr; }
+@media (max-width:640px){ .form .row{ grid-template-columns: 1fr; }}
+
+/* ===== Checklist (genres) ================================================= */
+.checklist{
+  display:flex; flex-wrap:wrap; gap:8px; margin-top:6px;
+}
+.checklist > label{
+  display:inline-flex; align-items:center; gap:8px;
+  padding:8px 12px; border:1px solid var(--border); border-radius:999px;
+  background: linear-gradient(180deg, rgba(255,255,255,.02), rgba(0,0,0,.02));
+  cursor:pointer; user-select:none; transition:.15s ease;
+}
+.checklist > label:hover{ transform: translateY(-1px); box-shadow: var(--shadow); }
+.checklist input[type="checkbox"]{ width:16px; height:16px; }
+.checklist input[type="checkbox"]:focus-visible{ outline:none; box-shadow: var(--ring); border-radius:4px; }
+.checklist input[type="checkbox"]:checked + span{
+  font-weight:600; color: var(--fg);
+}
+
+/* ===== Helpers ============================================================ */
+.muted{ color: var(--muted); }
+.spacer{ height:8px; }
+hr{ border:0; border-top:1px solid var(--border); margin:16px 0; }
+
+/* ===== Toast / Status ===================================================== */
+.status{ margin-top:8px; font-weight:500; }
+.status.ok{ color:#10b981; }
+.status.err{ color:#ef4444; }
+
+/* ===== Small badge count ================================================== */
+.badge{
+  display:inline-flex; align-items:center; justify-content:center;
+  min-width:24px; height:24px; padding:0 8px; border-radius:999px;
+  background:rgba(59,130,246,.15); color:#60a5fa; font-size:12px; font-weight:600;
+}
