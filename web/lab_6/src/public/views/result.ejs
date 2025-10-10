@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Результат обработки</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        .result-container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 30px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+        .success-message {
+            color: #27ae60;
+            font-size: 1.5em;
+            margin-bottom: 20px;
+        }
+        .result-item {
+            margin: 15px 0;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 5px;
+        }
+        .back-button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background: #3498db;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="result-container">
+            <div class="success-message">✅ Данные успешно обработаны!</div>
+            
+            <h2>Введенные данные:</h2>
+            
+            <div class="result-item">
+                <strong>Имя:</strong> <%= data.name %>
+            </div>
+            
+            <div class="result-item">
+                <strong>Email:</strong> <%= data.email %>
+            </div>
+            
+            <div class="result-item">
+                <strong>Сообщение:</strong> <%= data.message %>
+            </div>
+            
+            <div class="result-item">
+                <strong>ID обработки:</strong> <%= data.id %>
+            </div>
+            
+            <div class="result-item">
+                <strong>Время обработки:</strong> <%= data.timestamp %>
+            </div>
+
+            <a href="/form" class="back-button">← Вернуться к форме</a>
+            <a href="/" class="back-button" style="background: #95a5a6;">На главную</a>
+        </div>
+    </div>
+</body>
+</html>

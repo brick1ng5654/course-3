@@ -9,6 +9,7 @@ services:
     volumes:
       - ./src:/app/src
       - /app/src/node_modules
+
   #Контейнер web-service
   nginx:
     image: nginx:alpine
@@ -21,7 +22,7 @@ services:
     depends_on:
       - app
     
-  tomcat:
-    build: ./java-backend/
-    ports:
-      - "8081:8080"
+  # tomcat:
+  #   build: ./java-backend/
+  #   ports:
+  #     - "8081:8080"

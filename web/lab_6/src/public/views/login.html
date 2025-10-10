@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вход в систему</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        .login-container {
+            max-width: 400px;
+            margin: 100px auto;
+            padding: 40px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .error-message {
+            background: #ffeaa7;
+            color: #e74c3c;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="login-container">
+            <div style="font-size: 3em; margin-bottom: 20px;">🔐</div>
+            <h1>Вход в систему</h1>
+            <p>Лабораторная работа</p>
+            
+            <div id="errorMessage" class="error-message"></div>
+            
+            <form action="/auth" method="POST">
+                <div class="form-group">
+                    <label for="username">Имя пользователя:</label>
+                    <input type="text" id="username" name="username" required 
+                           placeholder="Введите логин" value="admin">
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Пароль:</label>
+                    <input type="password" id="password" name="password" required 
+                           placeholder="Введите пароль" value="password123">
+                </div>
+                
+                <button type="submit" style="width: 100%; padding: 12px; background: #3498db; color: white; border: none; border-radius: 8px; font-size: 16px; cursor: pointer;">
+                    Войти
+                </button>
+            </form>
+            
+            <div style="margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px; font-size: 14px;">
+                <strong>Тестовые данные:</strong><br>
+                Логин: <code>admin</code><br>
+                Пароль: <code>password123</code>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Показать ошибку из URL параметров
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('error')) {
+            document.getElementById('errorMessage').style.display = 'block';
+            document.getElementById('errorMessage').textContent = 'Неверное имя пользователя или пароль';
+        }
+    </script>
+</body>
+</html>

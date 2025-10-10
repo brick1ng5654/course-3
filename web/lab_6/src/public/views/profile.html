@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Профиль пользователя</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        .profile-container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 30px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        .data-section {
+            margin: 25px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+        .cookie-item, .session-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #ddd;
+        }
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            color: white;
+            cursor: pointer;
+            display: inline-block;
+            text-align: center;
+            font-size: 14px;
+        }
+        .btn-primary { background: #3498db; }
+        .btn-danger { background: #e74c3c; }
+        .btn-outline { 
+            background: transparent; 
+            border: 2px solid #3498db; 
+            color: #3498db;
+        }
+        .color-sample {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            margin-left: 10px;
+        }
+        .user-welcome {
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="profile-container">
+            <h1>👤 Профиль пользователя</h1>
+            
+            <div class="user-welcome">
+                <h2 id="welcomeMessage">Добро пожаловать, Гость!</h2>
+                <p>Текущий цвет фона: <span class="color-sample" id="currentBgColor"></span> <code id="bgColorCode">-</code></p>
+            </div>
+
+            <div class="data-section">
+                <h3>📊 Данные сессии</h3>
+                <div class="session-item">
+                    <span>Количество посещений:</span>
+                    <strong id="sessionVisitCount">0</strong>
+                </div>
+                <div class="session-item">
+                    <span>Последнее посещение:</span>
+                    <strong id="sessionLastVisit">-</strong>
+                </div>
+            </div>
+
+            <div class="data-section">
+                <h3>🍪 Cookie данные</h3>
+                <div id="cookiesList"></div>
+            </div>
+
+            <div class="data-section">
+                <h3>🔧 Действия</h3>
+                <div class="nav-buttons">
+                    <a href="/preferences" class="btn btn-primary">Изменить настройки</a>
+                    <a href="/clear-cookies" class="btn btn-danger">Очистить Cookie</a>
+                    <a href="/" class="btn btn-outline">На главную</a>
+                </div>
+            </div>
+
+            <details style="margin-top: 20px;">
+                <summary>📋 Все Cookie (для отладки)</summary>
+                <pre style="background: #2c3e50; color: white; padding: 15px; border-radius: 8px; overflow-x: auto;">
+                    <code id="allCookies"></code>
+                </pre>
+            </details>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            loadProfileData();
+        });
+
+        function loadProfileData() {
+            // Получаем все cookies
+            const cookies = document.cookie.split(';').reduce((acc, cookie) => {
+                const [key, value] = cookie.trim().split('=');
+                acc[key] = decodeURIComponent(value);
+                return acc;
+            }, {});
+
+            const userName = cookies.userName || 'Гость';
+            const bgColor = cookies.bgColor || '#ffffff';
+            const visitCount = cookies.visitCount || '0';
+            const lastVisit = cookies.lastVisit || '-';
+
+            // Устанавливаем цвет фона
+            document.body.style.backgroundColor = bgColor;
+            document.getElementById('currentBgColor').style.backgroundColor = bgColor;
+            document.getElementById('bgColorCode').textContent = bgColor;
+
+            // Заполняем данные
+            document.getElementById('welcomeMessage').textContent = `Добро пожаловать, ${userName}!`;
+            document.getElementById('sessionVisitCount').textContent = visitCount;
+            document.getElementById('sessionLastVisit').textContent = lastVisit;
+
+            // Отображаем список cookies
+            const cookiesList = document.getElementById('cookiesList');
+            const allCookies = document.getElementById('allCookies');
+            
+            cookiesList.innerHTML = '';
+            Object.entries(cookies).forEach(([key, value]) => {
+                const item = document.createElement('div');
+                item.className = 'cookie-item';
+                item.innerHTML = `<span>${key}:</span><strong>${value}</strong>`;
+                cookiesList.appendChild(item);
+            });
+
+            allCookies.textContent = JSON.stringify(cookies, null, 2);
+        }
+    </script>
+</body>
+</html>

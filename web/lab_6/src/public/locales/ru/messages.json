@@ -1,0 +1,13 @@
+{
+  "welcome": "Добро пожаловать!",
+  "homeTitle": "Главная страница",
+  "viewAllItems": "Все элементы",
+  "createItem": "Создать элемент",
+  "systemInfo": "Системная информация",
+  "itemName": "Название элемента",
+  "itemValue": "Значение элемента",
+  "createButton": "Создать",
+  "refreshButton": "Обновить",
+  "itemCreated": "Элемент успешно создан!",
+  "errorOccurred": "Произошла ошибка"
+}

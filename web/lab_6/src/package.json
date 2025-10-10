@@ -1,0 +1,28 @@
+{
+  "name": "lab_1",
+  "version": "1.0.0",
+  "description": "Лабораторная работа по созданию Web-приложения с Express.js и документацией",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "docs": "jsdoc -c jsdoc.json",
+    "docs:serve": "npx serve docs",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "generate-ssl": "if not exist ssl mkdir ssl && openssl req -nodes -new -x509 -keyout ssl/key.pem -out ssl/cert.pem -days 365 -subj \"/C=RU/ST=Moscow/L=Moscow/O=ITMO/CN=localhost\""
+},
+  "author": "Leonid Pasechyi",
+  "license": "ISC",
+  "dependencies": {
+    "basic-auth": "^2.0.1",
+    "cookie-parser": "^1.4.6",
+    "express": "^4.18.2",
+    "express-session": "^1.18.2",
+    "i18next": "^23.0.0",
+    "i18next-fs-backend": "^2.1.0",
+    "i18next-http-middleware": "^3.3.0"
+  },
+  "devDependencies": {
+    "jsdoc": "^4.0.3",
+    "nodemon": "^3.0.1"
+  }
+}

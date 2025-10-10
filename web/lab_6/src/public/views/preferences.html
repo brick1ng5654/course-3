@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Настройки пользователя</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        .preferences-container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 30px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        .color-sample {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            margin-left: 10px;
+            vertical-align: middle;
+        }
+        .session-info {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            color: white;
+            cursor: pointer;
+            display: inline-block;
+            text-align: center;
+            font-size: 14px;
+        }
+        .btn-primary { background: #3498db; }
+        .btn-secondary { background: #27ae60; }
+        .btn-danger { background: #e74c3c; }
+        .btn-outline { 
+            background: transparent; 
+            border: 2px solid #3498db; 
+            color: #3498db;
+        }
+        .current-settings {
+            margin-top: 20px;
+            padding: 15px;
+            background: #e8f5e8;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="preferences-container">
+            <h1>🎨 Настройки пользователя</h1>
+            
+            <div class="session-info">
+                <h3>Статистика сессии:</h3>
+                <p>Количество посещений: <strong id="visitCount">0</strong></p>
+                <p>Последнее посещение: <strong id="lastVisit">-</strong></p>
+            </div>
+
+            <form action="/save-preferences" method="POST">
+                <div class="form-group">
+                    <label for="userName">Имя пользователя:</label>
+                    <input type="text" id="userName" name="userName" class="form-control" placeholder="Введите ваше имя">
+                </div>
+
+                <div class="form-group">
+                    <label for="bgColor">Цвет фона:</label>
+                    <input type="color" id="bgColor" name="bgColor" class="form-control" value="#ffffff">
+                    <span class="color-sample" id="colorPreview"></span>
+                </div>
+
+                <div class="nav-buttons">
+                    <button type="submit" class="btn btn-primary">Сохранить настройки</button>
+                    <a href="/profile" class="btn btn-secondary">Перейти в профиль</a>
+                    <a href="/clear-cookies" class="btn btn-danger">Очистить Cookie</a>
+                    <a href="/" class="btn btn-outline">На главную</a>
+                </div>
+            </form>
+
+            <div class="current-settings" id="currentSettings" style="display: none;">
+                <h4>Текущие настройки:</h4>
+                <p>Имя: <strong id="currentName">-</strong></p>
+                <p>Цвет фона: <span class="color-sample" id="currentColor"></span> <code id="currentColorCode">-</code></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Загружаем данные при загрузке страницы
+        document.addEventListener('DOMContentLoaded', function() {
+            loadUserPreferences();
+        });
+
+        // Live preview цвета
+        document.getElementById('bgColor').addEventListener('input', function(e) {
+            document.body.style.backgroundColor = e.target.value;
+            document.getElementById('colorPreview').style.backgroundColor = e.target.value;
+        });
+
+        // Функция загрузки пользовательских настроек
+        function loadUserPreferences() {
+            // Получаем cookies
+            const cookies = document.cookie.split(';').reduce((acc, cookie) => {
+                const [key, value] = cookie.trim().split('=');
+                acc[key] = value;
+                return acc;
+            }, {});
+
+            const userName = cookies.userName || '';
+            const bgColor = cookies.bgColor || '#ffffff';
+            const visitCount = cookies.visitCount || '0';
+            const lastVisit = cookies.lastVisit || '-';
+
+            // Заполняем форму
+            if (userName) {
+                document.getElementById('userName').value = userName;
+                document.getElementById('currentName').textContent = userName;
+                document.getElementById('currentSettings').style.display = 'block';
+            }
+
+            if (bgColor) {
+                document.getElementById('bgColor').value = bgColor;
+                document.body.style.backgroundColor = bgColor;
+                document.getElementById('colorPreview').style.backgroundColor = bgColor;
+                document.getElementById('currentColor').style.backgroundColor = bgColor;
+                document.getElementById('currentColorCode').textContent = bgColor;
+            }
+
+            // Заполняем данные сессии
+            document.getElementById('visitCount').textContent = visitCount;
+            document.getElementById('lastVisit').textContent = lastVisit;
+        }
+    </script>
+</body>
+</html>

@@ -1,6 +1,8 @@
 const express = require('express');
 const path = require('path');
 const i18next = require('i18next');
+const ejs = require('ejs'); 
+const https = require('https');
 const i18nextMiddleware = require('i18next-http-middleware');
 const Backend = require('i18next-fs-backend');
 
@@ -39,10 +41,11 @@ const PORT = process.env.PORT || 3000;
  */
 const API_PREFIX = process.env.API_PREFIX || '${API_PREFIX}';
 
-
+app.set('view engine', 'ejs');
+app.use(express.urlencoded({ extended: true }));
 app.use(i18nextMiddleware.handle(i18next));
-
 //Serve static files
+app.engine('ejs', ejs.__express);
 app.use(express.static(path.join(__dirname, '/public')));
 app.use(express.json());
 
@@ -70,6 +73,7 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '/public/views/index.html'));
 });
 
+
 //Страница со всеми элементавми
 app.get('/view-all', (req, res) => {
     res.sendFile(path.join(__dirname, '/public/views/view-all.html'));
@@ -90,7 +94,9 @@ app.get('/system-info', (req, res) => {
     res.sendFile(path.join(__dirname, '/public/views/system-info.html'));
 });
 
-
+app.get('/form', (req, res) => {
+    res.sendFile(path.join(__dirname, '/public/views/form.html'));
+})
 /**
  * GET api/v1/items - Получить все эелементы
  * @param {express.Request} req - Объект запроса
@@ -169,6 +175,160 @@ app.get(`${API_PREFIX}/data`, (req, res) => {
     });
 });
 
+app.post('/process-form', (req, res) => {
+    const { name, email, message } = req.body;
+
+    // Валидация
+    if (!name || !email || !message) {
+        return res.send(`
+            <!DOCTYPE html>
+            <html lang="ru">
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>Ошибка</title>
+                <link rel="stylesheet" href="/css/style.css">
+                <style>
+                    .error-container {
+                        max-width: 500px;
+                        margin: 50px auto;
+                        padding: 30px;
+                        background: white;
+                        border-radius: 10px;
+                        box-shadow: 0 0 20px rgba(0,0,0,0.1);
+                        text-align: center;
+                    }
+                    .error-message {
+                        color: #e74c3c;
+                        font-size: 1.2em;
+                        margin: 20px 0;
+                        padding: 15px;
+                        background: #ffeaa7;
+                        border-radius: 5px;
+                    }
+                    .back-button {
+                        display: inline-block;
+                        padding: 10px 20px;
+                        background: #3498db;
+                        color: white;
+                        text-decoration: none;
+                        border-radius: 5px;
+                    }
+                </style>
+            </head>
+            <body>
+                <div class="container">
+                    <div class="error-container">
+                        <h1>⚠️ Ошибка</h1>
+                        <div class="error-message">
+                            Все поля должны быть заполнены
+                        </div>
+                        <a href="/form" class="back-button">← Вернуться к форме</a>
+                    </div>
+                </div>
+            </body>
+            </html>
+        `);
+    }
+
+    // Обработка данных
+    const processData = {
+        name: name.toUpperCase(),
+        email: email.toLowerCase(),
+        message: message,
+        timestamp: new Date(),
+        id: Math.random().toString(36).substr(2, 9)
+    };
+
+    // Отправляем красивый HTML результат
+    res.send(`
+        <!DOCTYPE html>
+        <html lang="ru">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Результат обработки</title>
+            <link rel="stylesheet" href="/css/style.css">
+            <style>
+                .result-container {
+                    max-width: 600px;
+                    margin: 50px auto;
+                    padding: 30px;
+                    background: white;
+                    border-radius: 10px;
+                    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+                }
+                .success-message {
+                    color: #27ae60;
+                    font-size: 1.5em;
+                    margin-bottom: 20px;
+                }
+                .result-item {
+                    margin: 15px 0;
+                    padding: 10px;
+                    background: #f8f9fa;
+                    border-radius: 5px;
+                }
+                .back-button {
+                    display: inline-block;
+                    margin-top: 20px;
+                    padding: 10px 20px;
+                    background: #3498db;
+                    color: white;
+                    text-decoration: none;
+                    border-radius: 5px;
+                    margin-right: 10px;
+                }
+                .nav-buttons {
+                    margin: 20px 0;
+                    padding: 15px;
+                    background: #f8f9fa;
+                    border-radius: 5px;
+                }
+            </style>
+        </head>
+        <body>
+            <div class="container">
+                <div class="nav-buttons">
+                    <a href="/" class="back-button">Главная</a>
+                    <a href="/form" class="back-button" style="background: #27ae60;">Новая форма</a>
+                </div>
+                
+                <div class="result-container">
+                    <div class="success-message">✅ Данные успешно обработаны!</div>
+                    
+                    <h2>Введенные данные:</h2>
+                    
+                    <div class="result-item">
+                        <strong>Имя:</strong> ${processData.name}
+                    </div>
+                    
+                    <div class="result-item">
+                        <strong>Email:</strong> ${processData.email}
+                    </div>
+                    
+                    <div class="result-item">
+                        <strong>Сообщение:</strong> ${processData.message}
+                    </div>
+                    
+                    <div class="result-item">
+                        <strong>ID обработки:</strong> ${processData.id}
+                    </div>
+                    
+                    <div class="result-item">
+                        <strong>Время обработки:</strong> ${processData.timestamp}
+                    </div>
+
+                    <div style="margin-top: 30px;">
+                        <a href="/form" class="back-button">← Заполнить новую форму</a>
+                        <a href="/" class="back-button" style="background: #95a5a6;">На главную</a>
+                    </div>
+                </div>
+            </div>
+        </body>
+        </html>
+    `);
+});
 /**
  * Запуск серовера
  */

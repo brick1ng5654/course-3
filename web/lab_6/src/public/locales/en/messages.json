@@ -1,0 +1,13 @@
+{
+  "welcome": "Welcome!",
+  "homeTitle": "Home Page", 
+  "viewAllItems": "All Items",
+  "createItem": "Create Item",
+  "systemInfo": "System Information",
+  "itemName": "Item Name",
+  "itemValue": "Item Value",
+  "createButton": "Create",
+  "refreshButton": "Refresh",
+  "itemCreated": "Item created successfully!",
+  "errorOccurred": "An error occurred"
+}
