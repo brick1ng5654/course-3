@@ -1,0 +1,65 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Настройки (Cookies)</title>
+<link rel="stylesheet" href="/style.css">
+
+<div class="container">
+  <div class="header">
+    <h1 style="margin:0;">Ввод имени и цвета (Cookies)</h1>
+    <a class="brand" href="/">На главную</a>
+  </div>
+
+  <form id="prefs-form" class="form card">
+    <div>
+      <label for="username">Имя пользователя</label>
+      <input id="username" class="input" required placeholder="student">
+    </div>
+    <div>
+      <label for="color">Цвет страницы (hex)</label>
+      <input id="color" class="input" placeholder="#e6f7ff">
+    </div>
+    <div>
+      <label><input type="checkbox" id="persist"> Запомнить на 7 дней</label>
+    </div>
+    <div class="toolbar">
+      <button class="btn primary">Сохранить в Cookie</button>
+      <a class="btn" href="/view.html">Показать значения</a>
+    </div>
+    <div id="status" class="status"></div>
+  </form>
+</div>
+
+<script src="/script.js"></script>
+<script src="/i18n-utils.js"></script>
+<script>
+// Инициализация интернационализации
+document.addEventListener('DOMContentLoaded', async () => {
+  await initI18n();
+  updatePrefsForm();
+});
+
+// Обработчик формы
+document.getElementById('prefs-form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const st = document.getElementById('status');
+  st.className='status'; 
+  st.textContent = t('prefs_saving_status');
+
+  const payload = {
+    username: document.getElementById('username').value.trim(),
+    color: document.getElementById('color').value.trim(),
+    persistDays: document.getElementById('persist').checked ? 7 : undefined
+  };
+  try {
+    const r = await fetch('/api/prefs', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload) });
+    const data = await r.json();
+    if (!r.ok) throw new Error(data.error || ('HTTP '+r.status));
+    st.className='status ok'; 
+    st.textContent = t('prefs_saved_status');
+  } catch (e2) {
+    st.className='status err'; 
+    st.textContent = t('prefs_error_prefix') + e2.message;
+  }
+});
+</script>
