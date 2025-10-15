@@ -1,7 +1,6 @@
 const express = require('express');
 const path = require('path');
 const i18next = require('i18next');
-const ejs = require('ejs'); 
 const basicAuth = require('basic-auth');
 const https = require('https');
 const i18nextMiddleware = require('i18next-http-middleware');
@@ -46,13 +45,12 @@ const PORT = process.env.PORT || 3000;
  */
 const API_PREFIX = process.env.API_PREFIX || '${API_PREFIX}';
 
-app.set('view engine', 'ejs');
+app.set('view engine');
 
 app.use(express.urlencoded({ extended: true }));
 
 app.use(i18nextMiddleware.handle(i18next));
 //Serve static files
-app.engine('ejs', ejs.__express);
 app.use(express.static(path.join(__dirname, '/public')));
 app.use(express.json());
 app.use(cookieParser());
@@ -181,6 +179,10 @@ app.get('/', auth, (req, res) => {
     res.sendFile(path.join(__dirname, '/public/views/index.html'));
 });
 
+//GWT приложение
+app.get('/gwt-app', auth, (req, res) => {
+    res.sendFile(path.join(__dirname, '/public/views/gwt-app.html'));
+});
 
 //Страница со всеми элементавми
 app.get('/view-all', auth, (req, res) => {
@@ -213,6 +215,7 @@ app.get('/profile', auth, (req, res) => {
 app.get('/form', auth, (req, res) => {
     res.sendFile(path.join(__dirname, '/public/views/form.html'));
 });
+
 /**
  * GET api/v1/items - Получить все эелементы
  * @param {express.Request} req - Объект запроса
@@ -252,6 +255,34 @@ app.get(`${API_PREFIX}/items/:id`, auth, (req, res) => {
         res.json(item);
 });
 
+//Удаление элемента
+app.delete(`${API_PREFIX}/items/:id`, auth, (req, res) => {
+    const id = parseInt(req.params.id);
+    const itemIndex = items.findIndex(item => item.id === id);
+
+    if (itemIndex === -1){
+        return res.status(404).json({ error: 'Элемент не найден' });
+    }
+
+    const deletedItem = items.splice(itemIndex, 1)[0];
+    res.json({ message: 'Элемент удален', item: deletedItem});
+})
+
+app.get(`${API_PREFIX}/stats`, auth, (req, res) => {
+    const totalItems = items.length;
+    const totalValue = items.reduce((sum, item) => sum + item.value, 0);
+    const avgValue = totalItems > 0 ? totalValue / totalItems : 0;
+
+    res.json({
+        totalItems,
+        totalValue,
+        avgValue: Math.round(avgValue * 100) / 100,
+        itemsByValue: items.map(item => ({
+            name: item.name,
+            value: item.value
+        }))
+    });
+});
 /**
  * POST /api/v1/items - Создать новый элемент
  * @param {express.Request} req - Объекта запроса

@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GWT-подобное приложение - Лабораторная работа</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        .gwt-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .gwt-nav {
+            background: #2c3e50;
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+        }
+        
+        .gwt-nav-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .gwt-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+        
+        .gwt-btn.primary {
+            background: #3498db;
+            color: white;
+        }
+        
+        .gwt-btn.success {
+            background: #27ae60;
+            color: white;
+        }
+        
+        .gwt-btn.danger {
+            background: #e74c3c;
+            color: white;
+        }
+        
+        .gwt-view {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            min-height: 400px;
+        }
+        
+        .items-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .item-card {
+            border: 1px solid #ddd;
+            padding: 1rem;
+            border-radius: 8px;
+            background: #f8f9fa;
+        }
+        
+        .stats-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 1rem;
+            border-radius: 5px;
+            color: white;
+            z-index: 1000;
+            animation: slideIn 0.3s ease;
+        }
+        
+        .notification.success { background: #27ae60; }
+        .notification.error { background: #e74c3c; }
+        
+        @keyframes slideIn {
+            from { transform: translateX(100%); }
+            to { transform: translateX(0); }
+        }
+        
+        .chart-bar {
+            background: #3498db;
+            margin: 5px 0;
+            padding: 10px;
+            border-radius: 4px;
+            color: white;
+            transition: width 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="gwt-container">
+        <nav class="gwt-nav">
+            <div class="gwt-nav-buttons">
+                <button class="gwt-btn primary" onclick="showView('list')">📋 Список элементов</button>
+                <button class="gwt-btn success" onclick="showView('create')">➕ Создать элемент</button>
+                <button class="gwt-btn" onclick="showView('stats')">📈 Статистика</button>
+                <button class="gwt-btn" onclick="location.href='/'" style="background: #95a5a6;">🏠 На главную</button>
+            </div>
+        </nav>
+        
+        <div id="gwt-view" class="gwt-view">
+            <!-- Динамическое содержимое будет здесь -->
+        </div>
+    </div>
+
+    <script>
+        class GWTApp {
+            constructor() {
+                this.items = [];
+                this.currentView = 'list';
+                this.init();
+            }
+            
+            async init() {
+                await this.loadItems();
+                this.showListView();
+            }
+            
+            async loadItems() {
+                try {
+                    const response = await fetch('/api/v1/items');
+                    this.items = await response.json();
+                } catch (error) {
+                    this.showNotification('Ошибка загрузки данных', 'error');
+                }
+            }
+            
+            showView(view) {
+                this.currentView = view;
+                
+                switch(view) {
+                    case 'list':
+                        this.showListView();
+                        break;
+                    case 'create':
+                        this.showCreateView();
+                        break;
+                    case 'stats':
+                        this.showStatsView();
+                        break;
+                }
+            }
+            
+            showListView() {
+                const html = `
+                    <h2>📋 Список элементов</h2>
+                    <div class="items-grid">
+                        ${this.items.map(item => `
+                            <div class="item-card">
+                                <h3>${item.name}</h3>
+                                <p><strong>Значение:</strong> ${item.value}</p>
+                                <p><strong>ID:</strong> ${item.id}</p>
+                                <button class="gwt-btn danger" onclick="app.deleteItem(${item.id})">🗑️ Удалить</button>
+                            </div>
+                        `).join('')}
+                    </div>
+                    ${this.items.length === 0 ? '<p>Элементы не найдены</p>' : ''}
+                `;
+                document.getElementById('gwt-view').innerHTML = html;
+            }
+            
+            showCreateView() {
+                const html = `
+                    <h2>➕ Создать новый элемент</h2>
+                    <form onsubmit="app.createItem(event)">
+                        <div class="form-group">
+                            <label for="itemName">Название элемента:</label>
+                            <input type="text" id="itemName" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="itemValue">Значение:</label>
+                            <input type="number" id="itemValue" class="form-control" required>
+                        </div>
+                        <button type="submit" class="gwt-btn success">Создать элемент</button>
+                    </form>
+                `;
+                document.getElementById('gwt-view').innerHTML = html;
+            }
+            
+            async showStatsView() {
+                try {
+                    const response = await fetch('/api/v1/stats');
+                    const stats = await response.json();
+                    
+                    const html = `
+                        <h2>📈 Статистика системы</h2>
+                        <div class="stats-cards">
+                            <div class="stat-card">
+                                <h3>Всего элементов</h3>
+                                <div style="font-size: 2em; font-weight: bold;">${stats.totalItems}</div>
+                            </div>
+                            <div class="stat-card">
+                                <h3>Общая сумма</h3>
+                                <div style="font-size: 2em; font-weight: bold;">${stats.totalValue}</div>
+                            </div>
+                            <div class="stat-card">
+                                <h3>Среднее значение</h3>
+                                <div style="font-size: 2em; font-weight: bold;">${stats.avgValue}</div>
+                            </div>
+                        </div>
+                        <h3 style="margin-top: 2rem;">Распределение значений</h3>
+                        <div>
+                            ${stats.itemsByValue.map(item => `
+                                <div class="chart-bar" style="width: ${Math.min(item.value, 100)}%">
+                                    ${item.name}: ${item.value}
+                                </div>
+                            `).join('')}
+                        </div>
+                    `;
+                    document.getElementById('gwt-view').innerHTML = html;
+                } catch (error) {
+                    this.showNotification('Ошибка загрузки статистики', 'error');
+                }
+            }
+            
+            async createItem(event) {
+                event.preventDefault();
+                
+                const name = document.getElementById('itemName').value;
+                const value = parseInt(document.getElementById('itemValue').value);
+                
+                try {
+                    const response = await fetch('/api/v1/items', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ name, value })
+                    });
+                    
+                    if (response.ok) {
+                        this.showNotification('Элемент успешно создан!', 'success');
+                        document.getElementById('itemName').value = '';
+                        document.getElementById('itemValue').value = '';
+                        await this.loadItems();
+                        this.showListView();
+                    } else {
+                        throw new Error('Ошибка создания');
+                    }
+                } catch (error) {
+                    this.showNotification('Ошибка создания элемента', 'error');
+                }
+            }
+            
+            async deleteItem(id) {
+                if (!confirm('Вы уверены, что хотите удалить этот элемент?')) return;
+                
+                try {
+                    const response = await fetch(`/api/v1/items/${id}`, {
+                        method: 'DELETE'
+                    });
+                    
+                    if (response.ok) {
+                        this.showNotification('Элемент удален!', 'success');
+                        await this.loadItems();
+                        this.showListView();
+                    } else {
+                        throw new Error('Ошибка удаления');
+                    }
+                } catch (error) {
+                    this.showNotification('Ошибка удаления элемента', 'error');
+                }
+            }
+            
+            showNotification(message, type = 'success') {
+                const notification = document.createElement('div');
+                notification.className = `notification ${type}`;
+                notification.textContent = message;
+                
+                document.body.appendChild(notification);
+                
+                setTimeout(() => {
+                    notification.remove();
+                }, 3000);
+            }
+        }
+        
+        // Глобальные функции для кнопок
+        const app = new GWTApp();
+        
+        function showView(view) {
+            app.showView(view);
+        }
+    </script>
+</body>
+</html>

@@ -7,9 +7,12 @@
     "start": "node server.js",
     "docs": "jsdoc -c jsdoc.json",
     "docs:serve": "npx serve docs",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "generate-ssl": "if not exist ssl mkdir ssl && openssl req -nodes -new -x509 -keyout ssl/key.pem -out ssl/cert.pem -days 365 -subj \"/C=RU/ST=Moscow/L=Moscow/O=ITMO/CN=localhost\""
-},
+    "generate-ssl": "if not exist ssl mkdir ssl && openssl req -nodes -new -x509 -keyout ssl/key.pem -out ssl/cert.pem -days 365 -subj \"/C=RU/ST=Moscow/L=Moscow/O=ITMO/CN=localhost\"",
+    "test": "jest",
+    "test:cookies": "jest __tests__/unit/cookies.test.js",
+    "test:sessions": "jest __tests__/unit/sessions.test.js",
+    "test:auth": "jest __tests__/unit/auth.test.js"
+  },
   "author": "Leonid Pasechyi",
   "license": "ISC",
   "dependencies": {
@@ -22,7 +25,11 @@
     "i18next-http-middleware": "^3.3.0"
   },
   "devDependencies": {
+    "@types/jest": "^30.0.0",
+    "jest": "^30.2.0",
     "jsdoc": "^4.0.3",
-    "nodemon": "^3.0.1"
+    "node-mocks-http": "^1.17.2",
+    "nodemon": "^3.0.1",
+    "supertest": "^7.1.4"
   }
 }
