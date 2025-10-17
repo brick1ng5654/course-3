@@ -1,0 +1,31 @@
+services:
+  app:
+    build: ./app
+    container_name: lab09_node
+    expose:
+      - "3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - API_PREFIX=/api
+      - DEFAULT_PAGE_SIZE=50
+      - DEFAULT_LANG=en
+    volumes:
+      - ./app/movies.en.json:/app/movies.en.json
+      - ./app/movies.ru.json:/app/movies.ru.json
+    restart: unless-stopped
+
+  nginx:
+    image: nginx:stable-alpine
+    container_name: lab09_nginx
+    depends_on:
+      - app
+    ports:
+      - "8081:80"
+      - "443:443"
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./nginx/.htpasswd:/etc/nginx/conf.d/.htpasswd:ro
+      - ./nginx/certs:/etc/nginx/certs:ro
+      - ./src:/usr/share/nginx/html:ro
+    restart: unless-stopped

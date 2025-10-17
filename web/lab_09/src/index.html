@@ -1,0 +1,40 @@
+<!doctype html>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title id="doc_title">Movies</title>
+<link rel="stylesheet" href="/style.css" />
+
+<div class="container">
+<div class="header">
+  <h1 id="h1_title" style="margin:0;">Movies</h1>
+</div>
+
+<div class="toolbar">
+  <span class="muted" id="label_lang">Lang:</span>
+  <button type="button" class="langbtn" data-lang="en">EN</button>
+  <button type="button" class="langbtn" data-lang="ru">RU</button>
+
+  <span class="spacer"></span>
+  <a class="btn" id="nav_add" href="/add.html">Add movie</a>
+  <a class="btn" id="nav_all" href="/all.html">All movies</a>
+
+  <!-- NEW: Lab-7 demo links -->
+  <a class="btn" href="/prefs.html">Preferences (cookies)</a>
+  <a class="btn" href="/view.html">View cookies/session</a>
+</div>
+
+
+<form id="search-form" class="form" method="get" action="#">
+  <div>
+    <label for="q" id="label_search">Search</label>
+    <input id="q" class="input" placeholder="" autocomplete="off" />
+  </div>
+  <div>
+    <button class="btn primary" id="search_btn">Search</button>
+  </div>
+</form>
+
+<div id="results" class="grid" style="margin-top:16px;"></div>
+</div>
+
+<script src="script.js"></script>

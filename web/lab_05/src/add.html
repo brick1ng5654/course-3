@@ -1,0 +1,179 @@
+<!doctype html>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title id="doc_title">Добавить фильм</title>
+<link rel="stylesheet" href="/style.css" />
+
+<div class="container">
+  <div class="header">
+    <h1 id="h1_title" style="margin:0;">Добавить фильм (RU + EN)</h1>
+    <a class="brand" id="brand_home" href="/">На главную</a>
+  </div>
+
+  <div class="toolbar">
+    <span class="muted" id="label_lang">Язык:</span>
+    <button class="langbtn" data-lang="ru" id="btnRU">RU</button>
+    <button class="langbtn" data-lang="en" id="btnEN">EN</button>
+    <a class="btn" id="nav_all" href="/all.html" style="margin-left:auto;">Все фильмы</a>
+  </div>
+
+  <form id="add-form" class="form card">
+    <div class="row">
+      <div>
+        <label for="title_ru" id="label_title_ru">Название (RU)</label>
+        <input id="title_ru" class="input" required />
+      </div>
+      <div>
+        <label for="title_en" id="label_title_en">Название (EN)</label>
+        <input id="title_en" class="input" required />
+      </div>
+    </div>
+
+    <div class="row">
+      <div>
+        <label for="year" id="label_year">Год</label>
+        <input id="year" type="number" min="1888" max="2100" class="input" />
+      </div>
+      <div>
+        <label for="rating" id="label_rating">Рейтинг</label>
+        <input id="rating" type="number" step="0.1" min="0" max="10" class="input" />
+      </div>
+    </div>
+
+    <div>
+      <label id="label_genres">Жанры</label>
+      <div id="genres_box" class="checklist">
+        <label><input type="checkbox" value="action"> <span id="g_action">Боевик</span></label>
+        <label><input type="checkbox" value="scifi"> <span id="g_scifi">Фантастика</span></label>
+        <label><input type="checkbox" value="drama"> <span id="g_drama">Драма</span></label>
+        <label><input type="checkbox" value="comedy"> <span id="g_comedy">Комедия</span></label>
+        <label><input type="checkbox" value="thriller"> <span id="g_thriller">Триллер</span></label>
+        <label><input type="checkbox" value="animation"> <span id="g_animation">Анимация</span></label>
+      </div>
+    </div>
+
+    <div>
+      <label for="director" id="label_director">Режиссёр</label>
+      <input id="director" class="input" placeholder="Лана Вачовски, Лилли Вачовски" />
+    </div>
+
+    <div class="toolbar">
+      <button type="submit" class="btn primary" id="btn_save">Сохранить</button>
+      <a class="btn" id="link_all" href="/all.html">Все фильмы</a>
+    </div>
+
+    <div id="status" class="status"></div>
+  </form>
+</div>
+
+<script>
+(function(){
+  function getParam(n){return new URLSearchParams(location.search).get(n)||""}
+  function setParams(obj, replace=false){
+    const url = new URL(location.href);
+    Object.keys(obj).forEach(k=>{
+      const v=obj[k];
+      if(v===null||v===undefined||v==="") url.searchParams.delete(k);
+      else url.searchParams.set(k,v);
+    });
+    history[replace?'replaceState':'pushState'](null,"",url);
+  }
+  function getCurrentLang(){
+    const fromUrl=getParam('lang'); if(["ru","en"].includes(fromUrl)) return fromUrl;
+    const fromLs=localStorage.getItem('lang'); if(["ru","en"].includes(fromLs)) return fromLs;
+    const nav=(navigator.language||'en').slice(0,2); return ["ru","en"].includes(nav)?nav:'en';
+  }
+  async function loadStrings(){
+    const lang=getCurrentLang();
+    try{
+      window.__i18n = await fetch(`/i18n/${lang}.json?v=6`,{cache:'no-store'}).then(r=>r.json());
+    }catch{
+      window.__i18n = (lang==='ru')?{
+        brand_home:'На главную', add_title:'Добавить фильм', add_heading:'Добавить фильм (RU + EN)', label_lang:'Язык:',
+        add_label_title_ru:'Название (RU)', add_label_title_en:'Название (EN)', add_label_year:'Год', add_label_rating:'Рейтинг',
+        add_label_genres:'Жанры (через запятую)', add_placeholder_genres:'Боевик, Фантастика', add_label_director:'Режиссёр', add_placeholder_director:'Лана Вачовски, Лилли Вачовски',
+        add_save:'Сохранить', add_link_all:'Все фильмы', add_status_saving:'Сохраняю…', add_status_ok:'Ок! Добавлено id=', add_status_error_prefix:'Ошибка: '
+      }:{
+        brand_home:'Home', add_title:'Add movie', add_heading:'Add movie (RU + EN)', label_lang:'Lang:',
+        add_label_title_ru:'Title (RU)', add_label_title_en:'Title (EN)', add_label_year:'Year', add_label_rating:'Rating',
+        add_label_genres:'Genres (comma-separated)', add_placeholder_genres:'Action, Sci-Fi', add_label_director:'Director', add_placeholder_director:'Lana Wachowski, Lilly Wachowski',
+        add_save:'Save', add_link_all:'All movies', add_status_saving:'Saving…', add_status_ok:'OK! Added id=', add_status_error_prefix:'Error: '
+      };
+    }
+    document.title = window.__i18n.add_title || window.__i18n.app_title || document.title;
+    const map = [
+      ['#doc_title','add_title'], ['#h1_title','add_heading'], ['#brand_home','brand_home'], ['#label_lang','label_lang'],
+      ['#nav_all','nav_all'], ['#label_title_ru','add_label_title_ru'], ['#label_title_en','add_label_title_en'],
+      ['#label_year','add_label_year'], ['#label_rating','add_label_rating'], ['#label_genres','add_label_genres_simple'],
+      ['#label_director','add_label_director'], ['#btn_save','add_save'], ['#link_all','add_link_all']
+    ];
+    map.forEach(([sel,key])=>{ const el=document.querySelector(sel); if(el&&window.__i18n[key]!=null) el.textContent=window.__i18n[key]; });
+    // жанры чекбоксы
+    const t = window.__i18n || {};
+    const text = {
+      action: t.genres_action || 'Action',
+      scifi: t.genres_scifi || 'Sci-Fi',
+      drama: t.genres_drama || 'Drama',
+      comedy: t.genres_comedy || 'Comedy',
+      thriller: t.genres_thriller || 'Thriller',
+      animation: t.genres_animation || 'Animation'
+    };
+    const ids = {action:'#g_action', scifi:'#g_scifi', drama:'#g_drama', comedy:'#g_comedy', thriller:'#g_thriller', animation:'#g_animation'};
+    Object.keys(ids).forEach(k=>{ const el=document.querySelector(ids[k]); if(el) el.textContent=text[k]; });
+    const director = document.getElementById('director'); if(director&&window.__i18n.add_placeholder_director) director.placeholder = window.__i18n.add_placeholder_director;
+  }
+
+  function setActiveButtons(lang){
+    document.getElementById('btnRU').classList.toggle('active', lang==='ru');
+    document.getElementById('btnEN').classList.toggle('active', lang==='en');
+  }
+
+  document.addEventListener('DOMContentLoaded', async()=>{
+    const lang = getCurrentLang();
+    if(getParam('lang')!==lang) setParams({lang}, true);
+    localStorage.setItem('lang', lang);
+    setActiveButtons(lang);
+    await loadStrings();
+
+    document.querySelectorAll('.langbtn').forEach(btn=>{
+      btn.addEventListener('click', async()=>{
+        const newLang = btn.getAttribute('data-lang');
+        if(!newLang || newLang===getCurrentLang()) return;
+        setParams({lang:newLang}, true);
+        localStorage.setItem('lang', newLang);
+        setActiveButtons(newLang);
+        await loadStrings();
+      });
+    });
+
+    document.getElementById('add-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const payload = {
+        title_ru: document.getElementById('title_ru').value.trim(),
+        title_en: document.getElementById('title_en').value.trim(),
+        year: document.getElementById('year').value ? Number(document.getElementById('year').value) : undefined,
+        genres: Array.from(document.querySelectorAll('#genres_box input[type="checkbox"]:checked')).map(i=>i.value).join(', '),
+        director: document.getElementById('director').value.trim(),
+        rating: document.getElementById('rating').value ? Number(document.getElementById('rating').value) : undefined
+      };
+      const st = document.getElementById('status');
+      st.className = 'status'; st.textContent = (window.__i18n&&window.__i18n.add_status_saving)||'Saving…';
+
+      try {
+        const r = await fetch('/api/movies', {
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        const data = await r.json();
+        if (!r.ok) throw new Error(data.error || ('HTTP ' + r.status));
+        st.className = 'status ok';
+        st.textContent = ((window.__i18n&&window.__i18n.add_status_ok)||'OK! Added id=') + data.item_ru.id;
+        ['title_ru','title_en','year','director','rating'].forEach(id => document.getElementById(id).value = '');
+        document.querySelectorAll('#genres_box input[type="checkbox"]').forEach(i=>i.checked=false);
+      } catch (err) {
+        st.className = 'status err'; st.textContent = ((window.__i18n&&window.__i18n.add_status_error_prefix)||'Error: ') + err.message;
+      }
+    });
+  });
+})();
+</script>

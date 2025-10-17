@@ -1,0 +1,26 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Просмотр Cookie и Session</title>
+<link rel="stylesheet" href="/style.css">
+
+<div class="container">
+  <div class="header">
+    <h1 style="margin:0;">Cookie + Session</h1>
+    <a class="brand" href="/">На главную</a>
+  </div>
+
+  <div id="info" class="card">
+    <p>Загружаю…</p>
+  </div>
+</div>
+
+<script src="/script.js"></script>
+<script src="/i18n-utils.js"></script>
+<script>
+// Инициализация интернационализации и загрузка данных
+document.addEventListener('DOMContentLoaded', async () => {
+  await initI18n();
+  await loadViewData();
+});
+</script>
