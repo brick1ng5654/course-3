@@ -1,7 +1,7 @@
 services:
   app:
     build: ./app
-    container_name: lab06_node
+    container_name: lab09_node
     expose:
       - "3000"
     environment:
@@ -17,7 +17,7 @@ services:
 
   nginx:
     image: nginx:stable-alpine
-    container_name: lab06_nginx
+    container_name: lab09_nginx
     depends_on:
       - app
     ports:
