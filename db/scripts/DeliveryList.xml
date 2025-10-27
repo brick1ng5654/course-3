@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" ?>
+<DeliveryList>
+  <Delivery SalesOrderID="43659">
+    <CustomerName>Steve Schmidt</CustomerName>
+    <Address>6126 North Sixth Street, Rockhampton</Address>
+  </Delivery>
+  <Delivery SalesOrderID="43660">
+    <CustomerName>Tony Lopez</CustomerName>
+    <Address>6445 Cashew Street, Rockhampton</Address>
+  </Delivery>
+</DeliveryList>
