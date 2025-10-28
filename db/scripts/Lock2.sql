@@ -6,9 +6,8 @@ USE AdventureWorks
 
 SET TRANSACTION ISOLATION LEVEL SERIALIZABLE
 
-SET lock_timeout 5000
-
 BEGIN TRANSACTION
+  -- WAITFOR DELAY '00:05:00'
   SELECT * FROM Person.Contact WHERE ContactID = 10
   UPDATE Person.Contact SET FirstName = 'Frances' WHERE ContactID = 6
 -- For the purpose of the exercise, COMMIT TRANSACTION or ROLLBACK TRANSACTION are not used.
