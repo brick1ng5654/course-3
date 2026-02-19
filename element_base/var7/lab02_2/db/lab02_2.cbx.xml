@@ -1,0 +1,7 @@
+<?xml version="1.0" ?>
+<LOG_ROOT>
+	<PROJECT NAME="lab02_2">
+		<CBX_INST_ENTRY INSTANCE_NAME="|lab02_2|lpm_constant0:inst10|lpm_constant:LPM_CONSTANT_component" CBX_FILE_NAME="lpm_constant_3e6.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|lab02_2|lpm_decode0:inst|lpm_decode:LPM_DECODE_component" CBX_FILE_NAME="decode_c8f.tdf"/>
+	</PROJECT>
+</LOG_ROOT>

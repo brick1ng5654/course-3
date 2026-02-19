@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<LOG_ROOT>
+	<PROJECT NAME="lab04">
+		<CBX_INST_ENTRY INSTANCE_NAME="|lab04|lpm_constant1:inst2|lpm_constant:LPM_CONSTANT_component" CBX_FILE_NAME="lpm_constant_5e6.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|lab04|lpm_mux0:inst3|LPM_MUX:LPM_MUX_component" CBX_FILE_NAME="mux_p4e.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|lab04|lpm_constant0:inst|lpm_constant:LPM_CONSTANT_component" CBX_FILE_NAME="lpm_constant_6e6.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|lab04|lpm_constant2:inst8|lpm_constant:LPM_CONSTANT_component" CBX_FILE_NAME="lpm_constant_8e6.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|lab04|lpm_constant3:inst9|lpm_constant:LPM_CONSTANT_component" CBX_FILE_NAME="lpm_constant_7e6.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|lab04|lpm_counter0:inst4|lpm_counter:LPM_COUNTER_component" CBX_FILE_NAME="cntr_okh.tdf"/>
+	</PROJECT>
+</LOG_ROOT>

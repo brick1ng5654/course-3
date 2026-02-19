@@ -1,0 +1,14 @@
+vendor_name = ModelSim
+source_file = 1, D:/quartus/labs/lab01/lab01.bdf
+source_file = 1, D:/quartus/labs/lab01/Waveform.vwf
+source_file = 1, Waveform1.vwf
+source_file = 1, Waveform2.vwf
+source_file = 1, D:/quartus/labs/lab01/db/lab01.cbx.xml
+design_name = lab01
+instance = comp, \x3~I , x3, lab01, 1
+instance = comp, \x1~I , x1, lab01, 1
+instance = comp, \x2~I , x2, lab01, 1
+instance = comp, \x4~I , x4, lab01, 1
+instance = comp, \inst24~0 , inst24~0, lab01, 1
+instance = comp, \out1~I , out1, lab01, 1
+instance = comp, \out2~I , out2, lab01, 1

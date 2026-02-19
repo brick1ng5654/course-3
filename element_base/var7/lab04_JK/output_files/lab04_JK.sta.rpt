@@ -1,0 +1,720 @@
+TimeQuest Timing Analyzer report for lab04_JK
+Wed Feb 18 19:52:13 2026
+Quartus II 64-Bit Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edition
+
+
+---------------------
+; Table of Contents ;
+---------------------
+  1. Legal Notice
+  2. TimeQuest Timing Analyzer Summary
+  3. Parallel Compilation
+  4. Clocks
+  5. Slow Model Fmax Summary
+  6. Slow Model Setup Summary
+  7. Slow Model Hold Summary
+  8. Slow Model Recovery Summary
+  9. Slow Model Removal Summary
+ 10. Slow Model Minimum Pulse Width Summary
+ 11. Slow Model Setup: 'lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1]'
+ 12. Slow Model Setup: 'Clk'
+ 13. Slow Model Hold: 'Clk'
+ 14. Slow Model Hold: 'lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1]'
+ 15. Slow Model Minimum Pulse Width: 'Clk'
+ 16. Slow Model Minimum Pulse Width: 'lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1]'
+ 17. Clock to Output Times
+ 18. Minimum Clock to Output Times
+ 19. Fast Model Setup Summary
+ 20. Fast Model Hold Summary
+ 21. Fast Model Recovery Summary
+ 22. Fast Model Removal Summary
+ 23. Fast Model Minimum Pulse Width Summary
+ 24. Fast Model Setup: 'lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1]'
+ 25. Fast Model Setup: 'Clk'
+ 26. Fast Model Hold: 'Clk'
+ 27. Fast Model Hold: 'lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1]'
+ 28. Fast Model Minimum Pulse Width: 'Clk'
+ 29. Fast Model Minimum Pulse Width: 'lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1]'
+ 30. Clock to Output Times
+ 31. Minimum Clock to Output Times
+ 32. Multicorner Timing Analysis Summary
+ 33. Clock to Output Times
+ 34. Minimum Clock to Output Times
+ 35. Setup Transfers
+ 36. Hold Transfers
+ 37. Report TCCS
+ 38. Report RSKM
+ 39. Unconstrained Paths
+ 40. TimeQuest Timing Analyzer Messages
+
+
+
+----------------
+; Legal Notice ;
+----------------
+Copyright (C) 1991-2013 Altera Corporation
+Your use of Altera Corporation's design tools, logic functions 
+and other software and tools, and its AMPP partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Altera Program License 
+Subscription Agreement, Altera MegaCore Function License 
+Agreement, or other applicable license agreement, including, 
+without limitation, that your use is for the sole purpose of 
+programming logic devices manufactured by Altera and sold by 
+Altera or its authorized distributors.  Please refer to the 
+applicable agreement for further details.
+
+
+
++----------------------------------------------------------------------------------------+
+; TimeQuest Timing Analyzer Summary                                                      ;
++--------------------+-------------------------------------------------------------------+
+; Quartus II Version ; Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edition ;
+; Revision Name      ; lab04_JK                                                          ;
+; Device Family      ; Cyclone II                                                        ;
+; Device Name        ; EP2C5Q208C8                                                       ;
+; Timing Models      ; Final                                                             ;
+; Delay Model        ; Combined                                                          ;
+; Rise/Fall Delays   ; Unavailable                                                       ;
++--------------------+-------------------------------------------------------------------+
+
+
+Parallel compilation was disabled, but you have multiple processors available. Enable parallel compilation to reduce compilation time.
++-------------------------------------+
+; Parallel Compilation                ;
++----------------------------+--------+
+; Processors                 ; Number ;
++----------------------------+--------+
+; Number detected on machine ; 12     ;
+; Maximum allowed            ; 1      ;
++----------------------------+--------+
+
+
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Clocks                                                                                                                                                                                                                                                                                                                                         ;
++----------------------------------------------------------------------------------------+------+--------+------------+-------+-------+------------+-----------+-------------+-------+--------+-----------+------------+----------+--------+--------+--------------------------------------------------------------------------------------------+
+; Clock Name                                                                             ; Type ; Period ; Frequency  ; Rise  ; Fall  ; Duty Cycle ; Divide by ; Multiply by ; Phase ; Offset ; Edge List ; Edge Shift ; Inverted ; Master ; Source ; Targets                                                                                    ;
++----------------------------------------------------------------------------------------+------+--------+------------+-------+-------+------------+-----------+-------------+-------+--------+-----------+------------+----------+--------+--------+--------------------------------------------------------------------------------------------+
+; Clk                                                                                    ; Base ; 1.000  ; 1000.0 MHz ; 0.000 ; 0.500 ;            ;           ;             ;       ;        ;           ;            ;          ;        ;        ; { Clk }                                                                                    ;
+; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; Base ; 1.000  ; 1000.0 MHz ; 0.000 ; 0.500 ;            ;           ;             ;       ;        ;           ;            ;          ;        ;        ; { lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] } ;
++----------------------------------------------------------------------------------------+------+--------+------------+-------+-------+------------+-----------+-------------+-------+--------+-----------+------------+----------+--------+--------+--------------------------------------------------------------------------------------------+
+
+
++----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Slow Model Fmax Summary                                                                                                                                                                ;
++-------------+-----------------+----------------------------------------------------------------------------------------+---------------------------------------------------------------+
+; Fmax        ; Restricted Fmax ; Clock Name                                                                             ; Note                                                          ;
++-------------+-----------------+----------------------------------------------------------------------------------------+---------------------------------------------------------------+
+; 475.51 MHz  ; 340.02 MHz      ; Clk                                                                                    ; limit due to minimum period restriction (max I/O toggle rate) ;
+; 1307.19 MHz ; 402.58 MHz      ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; limit due to high minimum pulse width violation (tch)         ;
++-------------+-----------------+----------------------------------------------------------------------------------------+---------------------------------------------------------------+
+This panel reports FMAX for every clock in the design, regardless of the user-specified clock periods.  FMAX is only computed for paths where the source and destination registers or ports are driven by the same clock.  Paths of different clocks, including generated clocks, are ignored.  For paths between a clock and its inversion, FMAX is computed as if the rising and falling edges are scaled along with FMAX, such that the duty cycle (in terms of a percentage) is maintained. Altera recommends that you always use clock constraints and other slack reports for sign-off analysis.
+
+
++-----------------------------------------------------------------------------------------------------------------+
+; Slow Model Setup Summary                                                                                        ;
++----------------------------------------------------------------------------------------+--------+---------------+
+; Clock                                                                                  ; Slack  ; End Point TNS ;
++----------------------------------------------------------------------------------------+--------+---------------+
+; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; -2.465 ; -2.465        ;
+; Clk                                                                                    ; -1.103 ; -3.504        ;
++----------------------------------------------------------------------------------------+--------+---------------+
+
+
++-----------------------------------------------------------------------------------------------------------------+
+; Slow Model Hold Summary                                                                                         ;
++----------------------------------------------------------------------------------------+--------+---------------+
+; Clock                                                                                  ; Slack  ; End Point TNS ;
++----------------------------------------------------------------------------------------+--------+---------------+
+; Clk                                                                                    ; -1.888 ; -4.620        ;
+; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; -0.129 ; -0.129        ;
++----------------------------------------------------------------------------------------+--------+---------------+
+
+
+-------------------------------
+; Slow Model Recovery Summary ;
+-------------------------------
+No paths to report.
+
+
+------------------------------
+; Slow Model Removal Summary ;
+------------------------------
+No paths to report.
+
+
++-----------------------------------------------------------------------------------------------------------------+
+; Slow Model Minimum Pulse Width Summary                                                                          ;
++----------------------------------------------------------------------------------------+--------+---------------+
+; Clock                                                                                  ; Slack  ; End Point TNS ;
++----------------------------------------------------------------------------------------+--------+---------------+
+; Clk                                                                                    ; -1.941 ; -7.877        ;
+; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; -0.742 ; -1.484        ;
++----------------------------------------------------------------------------------------+--------+---------------+
+
+
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Slow Model Setup: 'lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1]'                                                                                                                                                                                                                           ;
++--------+----------------------------------------------------------------------------------------+---------+----------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------+--------------+------------+------------+
+; Slack  ; From Node                                                                              ; To Node ; Launch Clock                                                                           ; Latch Clock                                                                            ; Relationship ; Clock Skew ; Data Delay ;
++--------+----------------------------------------------------------------------------------------+---------+----------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------+--------------+------------+------------+
+; -2.465 ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[0] ; inst9   ; Clk                                                                                    ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; 1.000        ; -0.998     ; 2.507      ;
+; -2.040 ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[2] ; inst9   ; Clk                                                                                    ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; 1.000        ; -0.998     ; 2.082      ;
+; -1.778 ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[3] ; inst9   ; Clk                                                                                    ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; 1.000        ; -0.998     ; 1.820      ;
+; 0.203  ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; inst9   ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; 0.500        ; 1.784      ; 2.425      ;
+; 0.235  ; inst9                                                                                  ; inst9   ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; 1.000        ; 0.000      ; 0.805      ;
+; 0.703  ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; inst9   ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; 1.000        ; 1.784      ; 2.425      ;
++--------+----------------------------------------------------------------------------------------+---------+----------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------+--------------+------------+------------+
+
+
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Slow Model Setup: 'Clk'                                                                                                                                                                                                                                                                                                                  ;
++--------+----------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------+-------------+--------------+------------+------------+
+; Slack  ; From Node                                                                              ; To Node                                                                                ; Launch Clock                                                                           ; Latch Clock ; Relationship ; Clock Skew ; Data Delay ;
++--------+----------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------+-------------+--------------+------------+------------+
+; -1.103 ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[0] ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[3] ; Clk                                                                                    ; Clk         ; 1.000        ; 0.000      ; 2.143      ;
+; -1.017 ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[0] ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[2] ; Clk                                                                                    ; Clk         ; 1.000        ; 0.000      ; 2.057      ;
+; -0.984 ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[2] ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[3] ; Clk                                                                                    ; Clk         ; 1.000        ; 0.000      ; 2.024      ;
+; -0.931 ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[0] ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; Clk                                                                                    ; Clk         ; 1.000        ; 0.000      ; 1.971      ;
+; -0.504 ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[2] ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[2] ; Clk                                                                                    ; Clk         ; 1.000        ; 0.000      ; 1.544      ;
+; -0.453 ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[0] ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[0] ; Clk                                                                                    ; Clk         ; 1.000        ; 0.000      ; 1.493      ;
+; -0.316 ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[3] ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[3] ; Clk                                                                                    ; Clk         ; 1.000        ; 0.000      ; 1.356      ;
+; 1.557  ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[3] ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; Clk         ; 0.500        ; 2.782      ; 2.069      ;
+; 1.643  ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[2] ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; Clk         ; 0.500        ; 2.782      ; 1.983      ;
+; 2.057  ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[3] ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; Clk         ; 1.000        ; 2.782      ; 2.069      ;
+; 2.122  ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; Clk         ; 0.500        ; 2.782      ; 1.504      ;
+; 2.143  ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[2] ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; Clk         ; 1.000        ; 2.782      ; 1.983      ;
+; 2.622  ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; Clk         ; 1.000        ; 2.782      ; 1.504      ;
++--------+----------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------+-------------+--------------+------------+------------+
+
+
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Slow Model Hold: 'Clk'                                                                                                                                                                                                                                                                                                                   ;
++--------+----------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------+-------------+--------------+------------+------------+
+; Slack  ; From Node                                                                              ; To Node                                                                                ; Launch Clock                                                                           ; Latch Clock ; Relationship ; Clock Skew ; Data Delay ;
++--------+----------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------+-------------+--------------+------------+------------+
+; -1.888 ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; Clk         ; 0.000        ; 2.782      ; 1.504      ;
+; -1.409 ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[2] ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; Clk         ; 0.000        ; 2.782      ; 1.983      ;
+; -1.388 ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; Clk         ; -0.500       ; 2.782      ; 1.504      ;
+; -1.323 ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[3] ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; Clk         ; 0.000        ; 2.782      ; 2.069      ;
+; -0.909 ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[2] ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; Clk         ; -0.500       ; 2.782      ; 1.983      ;
+; -0.823 ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[3] ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; Clk         ; -0.500       ; 2.782      ; 2.069      ;
+; 1.050  ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[3] ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[3] ; Clk                                                                                    ; Clk         ; 0.000        ; 0.000      ; 1.356      ;
+; 1.187  ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[0] ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[0] ; Clk                                                                                    ; Clk         ; 0.000        ; 0.000      ; 1.493      ;
+; 1.238  ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[2] ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[2] ; Clk                                                                                    ; Clk         ; 0.000        ; 0.000      ; 1.544      ;
+; 1.665  ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[0] ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; Clk                                                                                    ; Clk         ; 0.000        ; 0.000      ; 1.971      ;
+; 1.718  ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[2] ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[3] ; Clk                                                                                    ; Clk         ; 0.000        ; 0.000      ; 2.024      ;
+; 1.751  ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[0] ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[2] ; Clk                                                                                    ; Clk         ; 0.000        ; 0.000      ; 2.057      ;
+; 1.837  ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[0] ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[3] ; Clk                                                                                    ; Clk         ; 0.000        ; 0.000      ; 2.143      ;
++--------+----------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------+-------------+--------------+------------+------------+
+
+
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Slow Model Hold: 'lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1]'                                                                                                                                                                                                                            ;
++--------+----------------------------------------------------------------------------------------+---------+----------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------+--------------+------------+------------+
+; Slack  ; From Node                                                                              ; To Node ; Launch Clock                                                                           ; Latch Clock                                                                            ; Relationship ; Clock Skew ; Data Delay ;
++--------+----------------------------------------------------------------------------------------+---------+----------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------+--------------+------------+------------+
+; -0.129 ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; inst9   ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; 0.000        ; 1.784      ; 2.265      ;
+; 0.371  ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; inst9   ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; -0.500       ; 1.784      ; 2.265      ;
+; 0.499  ; inst9                                                                                  ; inst9   ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; 0.000        ; 0.000      ; 0.805      ;
+; 2.350  ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[2] ; inst9   ; Clk                                                                                    ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; 0.000        ; -0.998     ; 1.658      ;
+; 2.512  ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[3] ; inst9   ; Clk                                                                                    ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; 0.000        ; -0.998     ; 1.820      ;
+; 2.766  ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[0] ; inst9   ; Clk                                                                                    ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; 0.000        ; -0.998     ; 2.074      ;
++--------+----------------------------------------------------------------------------------------+---------+----------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------+--------------+------------+------------+
+
+
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Slow Model Minimum Pulse Width: 'Clk'                                                                                                                                   ;
++--------+--------------+----------------+------------------+-------+------------+----------------------------------------------------------------------------------------+
+; Slack  ; Actual Width ; Required Width ; Type             ; Clock ; Clock Edge ; Target                                                                                 ;
++--------+--------------+----------------+------------------+-------+------------+----------------------------------------------------------------------------------------+
+; -1.941 ; 1.000        ; 2.941          ; Port Rate        ; Clk   ; Rise       ; Clk                                                                                    ;
+; -0.742 ; 0.500        ; 1.242          ; High Pulse Width ; Clk   ; Rise       ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[0] ;
+; -0.742 ; 0.500        ; 1.242          ; Low Pulse Width  ; Clk   ; Rise       ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[0] ;
+; -0.742 ; 0.500        ; 1.242          ; High Pulse Width ; Clk   ; Rise       ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ;
+; -0.742 ; 0.500        ; 1.242          ; Low Pulse Width  ; Clk   ; Rise       ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ;
+; -0.742 ; 0.500        ; 1.242          ; High Pulse Width ; Clk   ; Rise       ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[2] ;
+; -0.742 ; 0.500        ; 1.242          ; Low Pulse Width  ; Clk   ; Rise       ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[2] ;
+; -0.742 ; 0.500        ; 1.242          ; High Pulse Width ; Clk   ; Rise       ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[3] ;
+; -0.742 ; 0.500        ; 1.242          ; Low Pulse Width  ; Clk   ; Rise       ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[3] ;
+; 0.500  ; 0.500        ; 0.000          ; High Pulse Width ; Clk   ; Rise       ; Clk|combout                                                                            ;
+; 0.500  ; 0.500        ; 0.000          ; Low Pulse Width  ; Clk   ; Rise       ; Clk|combout                                                                            ;
+; 0.500  ; 0.500        ; 0.000          ; High Pulse Width ; Clk   ; Rise       ; Clk~clkctrl|inclk[0]                                                                   ;
+; 0.500  ; 0.500        ; 0.000          ; Low Pulse Width  ; Clk   ; Rise       ; Clk~clkctrl|inclk[0]                                                                   ;
+; 0.500  ; 0.500        ; 0.000          ; High Pulse Width ; Clk   ; Rise       ; Clk~clkctrl|outclk                                                                     ;
+; 0.500  ; 0.500        ; 0.000          ; Low Pulse Width  ; Clk   ; Rise       ; Clk~clkctrl|outclk                                                                     ;
+; 0.500  ; 0.500        ; 0.000          ; High Pulse Width ; Clk   ; Rise       ; inst2|LPM_COUNTER_component|auto_generated|counter_reg_bit1a[0]|clk                    ;
+; 0.500  ; 0.500        ; 0.000          ; Low Pulse Width  ; Clk   ; Rise       ; inst2|LPM_COUNTER_component|auto_generated|counter_reg_bit1a[0]|clk                    ;
+; 0.500  ; 0.500        ; 0.000          ; High Pulse Width ; Clk   ; Rise       ; inst2|LPM_COUNTER_component|auto_generated|counter_reg_bit1a[1]|clk                    ;
+; 0.500  ; 0.500        ; 0.000          ; Low Pulse Width  ; Clk   ; Rise       ; inst2|LPM_COUNTER_component|auto_generated|counter_reg_bit1a[1]|clk                    ;
+; 0.500  ; 0.500        ; 0.000          ; High Pulse Width ; Clk   ; Rise       ; inst2|LPM_COUNTER_component|auto_generated|counter_reg_bit1a[2]|clk                    ;
+; 0.500  ; 0.500        ; 0.000          ; Low Pulse Width  ; Clk   ; Rise       ; inst2|LPM_COUNTER_component|auto_generated|counter_reg_bit1a[2]|clk                    ;
+; 0.500  ; 0.500        ; 0.000          ; High Pulse Width ; Clk   ; Rise       ; inst2|LPM_COUNTER_component|auto_generated|counter_reg_bit1a[3]|clk                    ;
+; 0.500  ; 0.500        ; 0.000          ; Low Pulse Width  ; Clk   ; Rise       ; inst2|LPM_COUNTER_component|auto_generated|counter_reg_bit1a[3]|clk                    ;
++--------+--------------+----------------+------------------+-------+------------+----------------------------------------------------------------------------------------+
+
+
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Slow Model Minimum Pulse Width: 'lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1]'                                                                                                                 ;
++--------+--------------+----------------+------------------+----------------------------------------------------------------------------------------+------------+------------------------------------------------------------------------+
+; Slack  ; Actual Width ; Required Width ; Type             ; Clock                                                                                  ; Clock Edge ; Target                                                                 ;
++--------+--------------+----------------+------------------+----------------------------------------------------------------------------------------+------------+------------------------------------------------------------------------+
+; -0.742 ; 0.500        ; 1.242          ; High Pulse Width ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; Rise       ; inst9                                                                  ;
+; -0.742 ; 0.500        ; 1.242          ; Low Pulse Width  ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; Rise       ; inst9                                                                  ;
+; 0.500  ; 0.500        ; 0.000          ; High Pulse Width ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; Rise       ; inst2|LPM_COUNTER_component|auto_generated|counter_reg_bit1a[1]|regout ;
+; 0.500  ; 0.500        ; 0.000          ; Low Pulse Width  ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; Rise       ; inst2|LPM_COUNTER_component|auto_generated|counter_reg_bit1a[1]|regout ;
+; 0.500  ; 0.500        ; 0.000          ; High Pulse Width ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; Rise       ; inst9|clk                                                              ;
+; 0.500  ; 0.500        ; 0.000          ; Low Pulse Width  ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; Rise       ; inst9|clk                                                              ;
+; 0.500  ; 0.500        ; 0.000          ; High Pulse Width ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; Rise       ; inst|LPM_MUX_component|auto_generated|result_node[2]|combout           ;
+; 0.500  ; 0.500        ; 0.000          ; Low Pulse Width  ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; Rise       ; inst|LPM_MUX_component|auto_generated|result_node[2]|combout           ;
+; 0.500  ; 0.500        ; 0.000          ; High Pulse Width ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; Rise       ; inst|LPM_MUX_component|auto_generated|result_node[2]|datac             ;
+; 0.500  ; 0.500        ; 0.000          ; Low Pulse Width  ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; Rise       ; inst|LPM_MUX_component|auto_generated|result_node[2]|datac             ;
++--------+--------------+----------------+------------------+----------------------------------------------------------------------------------------+------------+------------------------------------------------------------------------+
+
+
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Clock to Output Times                                                                                                                                                                                                    ;
++-----------+----------------------------------------------------------------------------------------+-------+-------+------------+----------------------------------------------------------------------------------------+
+; Data Port ; Clock Port                                                                             ; Rise  ; Fall  ; Clock Edge ; Clock Reference                                                                        ;
++-----------+----------------------------------------------------------------------------------------+-------+-------+------------+----------------------------------------------------------------------------------------+
+; J         ; Clk                                                                                    ; 8.078 ; 8.078 ; Rise       ; Clk                                                                                    ;
+; K         ; Clk                                                                                    ; 7.939 ; 7.939 ; Rise       ; Clk                                                                                    ;
+; X[*]      ; Clk                                                                                    ; 7.306 ; 7.306 ; Rise       ; Clk                                                                                    ;
+;  X[0]     ; Clk                                                                                    ; 6.917 ; 6.917 ; Rise       ; Clk                                                                                    ;
+;  X[2]     ; Clk                                                                                    ; 7.087 ; 7.087 ; Rise       ; Clk                                                                                    ;
+;  X[3]     ; Clk                                                                                    ; 7.306 ; 7.306 ; Rise       ; Clk                                                                                    ;
+; C         ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; 4.851 ;       ; Rise       ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ;
+; J         ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; 5.343 ; 5.343 ; Rise       ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ;
+; JK_res    ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; 5.908 ; 5.908 ; Rise       ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ;
+; K         ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; 4.611 ; 4.611 ; Rise       ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ;
+; X[*]      ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; 4.233 ;       ; Rise       ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ;
+;  X[1]     ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; 4.233 ;       ; Rise       ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ;
+; C         ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ;       ; 4.851 ; Fall       ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ;
+; J         ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; 5.343 ; 5.343 ; Fall       ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ;
+; K         ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; 4.611 ; 4.611 ; Fall       ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ;
+; X[*]      ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ;       ; 4.233 ; Fall       ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ;
+;  X[1]     ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ;       ; 4.233 ; Fall       ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ;
++-----------+----------------------------------------------------------------------------------------+-------+-------+------------+----------------------------------------------------------------------------------------+
+
+
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Minimum Clock to Output Times                                                                                                                                                                                            ;
++-----------+----------------------------------------------------------------------------------------+-------+-------+------------+----------------------------------------------------------------------------------------+
+; Data Port ; Clock Port                                                                             ; Rise  ; Fall  ; Clock Edge ; Clock Reference                                                                        ;
++-----------+----------------------------------------------------------------------------------------+-------+-------+------------+----------------------------------------------------------------------------------------+
+; J         ; Clk                                                                                    ; 7.662 ; 7.662 ; Rise       ; Clk                                                                                    ;
+; K         ; Clk                                                                                    ; 7.514 ; 7.514 ; Rise       ; Clk                                                                                    ;
+; X[*]      ; Clk                                                                                    ; 6.917 ; 6.917 ; Rise       ; Clk                                                                                    ;
+;  X[0]     ; Clk                                                                                    ; 6.917 ; 6.917 ; Rise       ; Clk                                                                                    ;
+;  X[2]     ; Clk                                                                                    ; 7.087 ; 7.087 ; Rise       ; Clk                                                                                    ;
+;  X[3]     ; Clk                                                                                    ; 7.306 ; 7.306 ; Rise       ; Clk                                                                                    ;
+; C         ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; 4.851 ;       ; Rise       ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ;
+; J         ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; 5.343 ; 5.343 ; Rise       ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ;
+; JK_res    ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; 5.908 ; 5.908 ; Rise       ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ;
+; K         ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; 4.611 ; 4.611 ; Rise       ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ;
+; X[*]      ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; 4.233 ;       ; Rise       ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ;
+;  X[1]     ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; 4.233 ;       ; Rise       ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ;
+; C         ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ;       ; 4.851 ; Fall       ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ;
+; J         ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; 5.343 ; 5.343 ; Fall       ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ;
+; K         ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; 4.611 ; 4.611 ; Fall       ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ;
+; X[*]      ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ;       ; 4.233 ; Fall       ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ;
+;  X[1]     ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ;       ; 4.233 ; Fall       ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ;
++-----------+----------------------------------------------------------------------------------------+-------+-------+------------+----------------------------------------------------------------------------------------+
+
+
++-----------------------------------------------------------------------------------------------------------------+
+; Fast Model Setup Summary                                                                                        ;
++----------------------------------------------------------------------------------------+--------+---------------+
+; Clock                                                                                  ; Slack  ; End Point TNS ;
++----------------------------------------------------------------------------------------+--------+---------------+
+; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; -0.530 ; -0.530        ;
+; Clk                                                                                    ; 0.308  ; 0.000         ;
++----------------------------------------------------------------------------------------+--------+---------------+
+
+
++-----------------------------------------------------------------------------------------------------------------+
+; Fast Model Hold Summary                                                                                         ;
++----------------------------------------------------------------------------------------+--------+---------------+
+; Clock                                                                                  ; Slack  ; End Point TNS ;
++----------------------------------------------------------------------------------------+--------+---------------+
+; Clk                                                                                    ; -1.240 ; -3.409        ;
+; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; -0.266 ; -0.266        ;
++----------------------------------------------------------------------------------------+--------+---------------+
+
+
+-------------------------------
+; Fast Model Recovery Summary ;
+-------------------------------
+No paths to report.
+
+
+------------------------------
+; Fast Model Removal Summary ;
+------------------------------
+No paths to report.
+
+
++-----------------------------------------------------------------------------------------------------------------+
+; Fast Model Minimum Pulse Width Summary                                                                          ;
++----------------------------------------------------------------------------------------+--------+---------------+
+; Clock                                                                                  ; Slack  ; End Point TNS ;
++----------------------------------------------------------------------------------------+--------+---------------+
+; Clk                                                                                    ; -1.380 ; -5.380        ;
+; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; -0.500 ; -1.000        ;
++----------------------------------------------------------------------------------------+--------+---------------+
+
+
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Fast Model Setup: 'lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1]'                                                                                                                                                                                                                           ;
++--------+----------------------------------------------------------------------------------------+---------+----------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------+--------------+------------+------------+
+; Slack  ; From Node                                                                              ; To Node ; Launch Clock                                                                           ; Latch Clock                                                                            ; Relationship ; Clock Skew ; Data Delay ;
++--------+----------------------------------------------------------------------------------------+---------+----------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------+--------------+------------+------------+
+; -0.530 ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[0] ; inst9   ; Clk                                                                                    ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; 1.000        ; -0.747     ; 0.815      ;
+; -0.411 ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[2] ; inst9   ; Clk                                                                                    ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; 1.000        ; -0.747     ; 0.696      ;
+; -0.334 ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[3] ; inst9   ; Clk                                                                                    ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; 1.000        ; -0.747     ; 0.619      ;
+; 0.616  ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; inst9   ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; 0.500        ; 0.722      ; 0.779      ;
+; 0.665  ; inst9                                                                                  ; inst9   ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; 1.000        ; 0.000      ; 0.367      ;
+; 1.116  ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; inst9   ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; 1.000        ; 0.722      ; 0.779      ;
++--------+----------------------------------------------------------------------------------------+---------+----------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------+--------------+------------+------------+
+
+
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Fast Model Setup: 'Clk'                                                                                                                                                                                                                                                                                                                 ;
++-------+----------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------+-------------+--------------+------------+------------+
+; Slack ; From Node                                                                              ; To Node                                                                                ; Launch Clock                                                                           ; Latch Clock ; Relationship ; Clock Skew ; Data Delay ;
++-------+----------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------+-------------+--------------+------------+------------+
+; 0.308 ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[0] ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[3] ; Clk                                                                                    ; Clk         ; 1.000        ; 0.000      ; 0.724      ;
+; 0.343 ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[0] ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[2] ; Clk                                                                                    ; Clk         ; 1.000        ; 0.000      ; 0.689      ;
+; 0.364 ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[2] ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[3] ; Clk                                                                                    ; Clk         ; 1.000        ; 0.000      ; 0.668      ;
+; 0.378 ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[0] ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; Clk                                                                                    ; Clk         ; 1.000        ; 0.000      ; 0.654      ;
+; 0.504 ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[2] ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[2] ; Clk                                                                                    ; Clk         ; 1.000        ; 0.000      ; 0.528      ;
+; 0.516 ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[0] ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[0] ; Clk                                                                                    ; Clk         ; 1.000        ; 0.000      ; 0.516      ;
+; 0.557 ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[3] ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[3] ; Clk                                                                                    ; Clk         ; 1.000        ; 0.000      ; 0.475      ;
+; 1.447 ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[3] ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; Clk         ; 0.500        ; 1.469      ; 0.695      ;
+; 1.482 ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[2] ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; Clk         ; 0.500        ; 1.469      ; 0.660      ;
+; 1.620 ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; Clk         ; 0.500        ; 1.469      ; 0.522      ;
+; 1.947 ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[3] ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; Clk         ; 1.000        ; 1.469      ; 0.695      ;
+; 1.982 ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[2] ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; Clk         ; 1.000        ; 1.469      ; 0.660      ;
+; 2.120 ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; Clk         ; 1.000        ; 1.469      ; 0.522      ;
++-------+----------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------+-------------+--------------+------------+------------+
+
+
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Fast Model Hold: 'Clk'                                                                                                                                                                                                                                                                                                                   ;
++--------+----------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------+-------------+--------------+------------+------------+
+; Slack  ; From Node                                                                              ; To Node                                                                                ; Launch Clock                                                                           ; Latch Clock ; Relationship ; Clock Skew ; Data Delay ;
++--------+----------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------+-------------+--------------+------------+------------+
+; -1.240 ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; Clk         ; 0.000        ; 1.469      ; 0.522      ;
+; -1.102 ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[2] ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; Clk         ; 0.000        ; 1.469      ; 0.660      ;
+; -1.067 ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[3] ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; Clk         ; 0.000        ; 1.469      ; 0.695      ;
+; -0.740 ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; Clk         ; -0.500       ; 1.469      ; 0.522      ;
+; -0.602 ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[2] ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; Clk         ; -0.500       ; 1.469      ; 0.660      ;
+; -0.567 ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[3] ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; Clk         ; -0.500       ; 1.469      ; 0.695      ;
+; 0.323  ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[3] ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[3] ; Clk                                                                                    ; Clk         ; 0.000        ; 0.000      ; 0.475      ;
+; 0.364  ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[0] ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[0] ; Clk                                                                                    ; Clk         ; 0.000        ; 0.000      ; 0.516      ;
+; 0.376  ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[2] ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[2] ; Clk                                                                                    ; Clk         ; 0.000        ; 0.000      ; 0.528      ;
+; 0.502  ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[0] ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; Clk                                                                                    ; Clk         ; 0.000        ; 0.000      ; 0.654      ;
+; 0.516  ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[2] ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[3] ; Clk                                                                                    ; Clk         ; 0.000        ; 0.000      ; 0.668      ;
+; 0.537  ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[0] ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[2] ; Clk                                                                                    ; Clk         ; 0.000        ; 0.000      ; 0.689      ;
+; 0.572  ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[0] ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[3] ; Clk                                                                                    ; Clk         ; 0.000        ; 0.000      ; 0.724      ;
++--------+----------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------+-------------+--------------+------------+------------+
+
+
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Fast Model Hold: 'lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1]'                                                                                                                                                                                                                            ;
++--------+----------------------------------------------------------------------------------------+---------+----------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------+--------------+------------+------------+
+; Slack  ; From Node                                                                              ; To Node ; Launch Clock                                                                           ; Latch Clock                                                                            ; Relationship ; Clock Skew ; Data Delay ;
++--------+----------------------------------------------------------------------------------------+---------+----------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------+--------------+------------+------------+
+; -0.266 ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; inst9   ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; 0.000        ; 0.722      ; 0.749      ;
+; 0.215  ; inst9                                                                                  ; inst9   ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; 0.000        ; 0.000      ; 0.367      ;
+; 0.234  ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; inst9   ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; -0.500       ; 0.722      ; 0.749      ;
+; 1.168  ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[2] ; inst9   ; Clk                                                                                    ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; 0.000        ; -0.747     ; 0.573      ;
+; 1.214  ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[3] ; inst9   ; Clk                                                                                    ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; 0.000        ; -0.747     ; 0.619      ;
+; 1.287  ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[0] ; inst9   ; Clk                                                                                    ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; 0.000        ; -0.747     ; 0.692      ;
++--------+----------------------------------------------------------------------------------------+---------+----------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------+--------------+------------+------------+
+
+
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Fast Model Minimum Pulse Width: 'Clk'                                                                                                                                   ;
++--------+--------------+----------------+------------------+-------+------------+----------------------------------------------------------------------------------------+
+; Slack  ; Actual Width ; Required Width ; Type             ; Clock ; Clock Edge ; Target                                                                                 ;
++--------+--------------+----------------+------------------+-------+------------+----------------------------------------------------------------------------------------+
+; -1.380 ; 1.000        ; 2.380          ; Port Rate        ; Clk   ; Rise       ; Clk                                                                                    ;
+; -0.500 ; 0.500        ; 1.000          ; High Pulse Width ; Clk   ; Rise       ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[0] ;
+; -0.500 ; 0.500        ; 1.000          ; Low Pulse Width  ; Clk   ; Rise       ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[0] ;
+; -0.500 ; 0.500        ; 1.000          ; High Pulse Width ; Clk   ; Rise       ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ;
+; -0.500 ; 0.500        ; 1.000          ; Low Pulse Width  ; Clk   ; Rise       ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ;
+; -0.500 ; 0.500        ; 1.000          ; High Pulse Width ; Clk   ; Rise       ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[2] ;
+; -0.500 ; 0.500        ; 1.000          ; Low Pulse Width  ; Clk   ; Rise       ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[2] ;
+; -0.500 ; 0.500        ; 1.000          ; High Pulse Width ; Clk   ; Rise       ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[3] ;
+; -0.500 ; 0.500        ; 1.000          ; Low Pulse Width  ; Clk   ; Rise       ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[3] ;
+; 0.500  ; 0.500        ; 0.000          ; High Pulse Width ; Clk   ; Rise       ; Clk|combout                                                                            ;
+; 0.500  ; 0.500        ; 0.000          ; Low Pulse Width  ; Clk   ; Rise       ; Clk|combout                                                                            ;
+; 0.500  ; 0.500        ; 0.000          ; High Pulse Width ; Clk   ; Rise       ; Clk~clkctrl|inclk[0]                                                                   ;
+; 0.500  ; 0.500        ; 0.000          ; Low Pulse Width  ; Clk   ; Rise       ; Clk~clkctrl|inclk[0]                                                                   ;
+; 0.500  ; 0.500        ; 0.000          ; High Pulse Width ; Clk   ; Rise       ; Clk~clkctrl|outclk                                                                     ;
+; 0.500  ; 0.500        ; 0.000          ; Low Pulse Width  ; Clk   ; Rise       ; Clk~clkctrl|outclk                                                                     ;
+; 0.500  ; 0.500        ; 0.000          ; High Pulse Width ; Clk   ; Rise       ; inst2|LPM_COUNTER_component|auto_generated|counter_reg_bit1a[0]|clk                    ;
+; 0.500  ; 0.500        ; 0.000          ; Low Pulse Width  ; Clk   ; Rise       ; inst2|LPM_COUNTER_component|auto_generated|counter_reg_bit1a[0]|clk                    ;
+; 0.500  ; 0.500        ; 0.000          ; High Pulse Width ; Clk   ; Rise       ; inst2|LPM_COUNTER_component|auto_generated|counter_reg_bit1a[1]|clk                    ;
+; 0.500  ; 0.500        ; 0.000          ; Low Pulse Width  ; Clk   ; Rise       ; inst2|LPM_COUNTER_component|auto_generated|counter_reg_bit1a[1]|clk                    ;
+; 0.500  ; 0.500        ; 0.000          ; High Pulse Width ; Clk   ; Rise       ; inst2|LPM_COUNTER_component|auto_generated|counter_reg_bit1a[2]|clk                    ;
+; 0.500  ; 0.500        ; 0.000          ; Low Pulse Width  ; Clk   ; Rise       ; inst2|LPM_COUNTER_component|auto_generated|counter_reg_bit1a[2]|clk                    ;
+; 0.500  ; 0.500        ; 0.000          ; High Pulse Width ; Clk   ; Rise       ; inst2|LPM_COUNTER_component|auto_generated|counter_reg_bit1a[3]|clk                    ;
+; 0.500  ; 0.500        ; 0.000          ; Low Pulse Width  ; Clk   ; Rise       ; inst2|LPM_COUNTER_component|auto_generated|counter_reg_bit1a[3]|clk                    ;
++--------+--------------+----------------+------------------+-------+------------+----------------------------------------------------------------------------------------+
+
+
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Fast Model Minimum Pulse Width: 'lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1]'                                                                                                                 ;
++--------+--------------+----------------+------------------+----------------------------------------------------------------------------------------+------------+------------------------------------------------------------------------+
+; Slack  ; Actual Width ; Required Width ; Type             ; Clock                                                                                  ; Clock Edge ; Target                                                                 ;
++--------+--------------+----------------+------------------+----------------------------------------------------------------------------------------+------------+------------------------------------------------------------------------+
+; -0.500 ; 0.500        ; 1.000          ; High Pulse Width ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; Rise       ; inst9                                                                  ;
+; -0.500 ; 0.500        ; 1.000          ; Low Pulse Width  ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; Rise       ; inst9                                                                  ;
+; 0.500  ; 0.500        ; 0.000          ; High Pulse Width ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; Rise       ; inst2|LPM_COUNTER_component|auto_generated|counter_reg_bit1a[1]|regout ;
+; 0.500  ; 0.500        ; 0.000          ; Low Pulse Width  ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; Rise       ; inst2|LPM_COUNTER_component|auto_generated|counter_reg_bit1a[1]|regout ;
+; 0.500  ; 0.500        ; 0.000          ; High Pulse Width ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; Rise       ; inst9|clk                                                              ;
+; 0.500  ; 0.500        ; 0.000          ; Low Pulse Width  ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; Rise       ; inst9|clk                                                              ;
+; 0.500  ; 0.500        ; 0.000          ; High Pulse Width ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; Rise       ; inst|LPM_MUX_component|auto_generated|result_node[2]|combout           ;
+; 0.500  ; 0.500        ; 0.000          ; Low Pulse Width  ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; Rise       ; inst|LPM_MUX_component|auto_generated|result_node[2]|combout           ;
+; 0.500  ; 0.500        ; 0.000          ; High Pulse Width ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; Rise       ; inst|LPM_MUX_component|auto_generated|result_node[2]|datac             ;
+; 0.500  ; 0.500        ; 0.000          ; Low Pulse Width  ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; Rise       ; inst|LPM_MUX_component|auto_generated|result_node[2]|datac             ;
++--------+--------------+----------------+------------------+----------------------------------------------------------------------------------------+------------+------------------------------------------------------------------------+
+
+
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Clock to Output Times                                                                                                                                                                                                    ;
++-----------+----------------------------------------------------------------------------------------+-------+-------+------------+----------------------------------------------------------------------------------------+
+; Data Port ; Clock Port                                                                             ; Rise  ; Fall  ; Clock Edge ; Clock Reference                                                                        ;
++-----------+----------------------------------------------------------------------------------------+-------+-------+------------+----------------------------------------------------------------------------------------+
+; J         ; Clk                                                                                    ; 3.744 ; 3.744 ; Rise       ; Clk                                                                                    ;
+; K         ; Clk                                                                                    ; 3.648 ; 3.648 ; Rise       ; Clk                                                                                    ;
+; X[*]      ; Clk                                                                                    ; 3.462 ; 3.462 ; Rise       ; Clk                                                                                    ;
+;  X[0]     ; Clk                                                                                    ; 3.351 ; 3.351 ; Rise       ; Clk                                                                                    ;
+;  X[2]     ; Clk                                                                                    ; 3.462 ; 3.462 ; Rise       ; Clk                                                                                    ;
+;  X[3]     ; Clk                                                                                    ; 3.458 ; 3.458 ; Rise       ; Clk                                                                                    ;
+; C         ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; 2.070 ;       ; Rise       ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ;
+; J         ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; 2.221 ; 2.221 ; Rise       ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ;
+; JK_res    ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; 2.601 ; 2.601 ; Rise       ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ;
+; K         ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; 1.972 ; 1.972 ; Rise       ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ;
+; X[*]      ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; 1.905 ;       ; Rise       ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ;
+;  X[1]     ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; 1.905 ;       ; Rise       ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ;
+; C         ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ;       ; 2.070 ; Fall       ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ;
+; J         ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; 2.221 ; 2.221 ; Fall       ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ;
+; K         ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; 1.972 ; 1.972 ; Fall       ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ;
+; X[*]      ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ;       ; 1.905 ; Fall       ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ;
+;  X[1]     ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ;       ; 1.905 ; Fall       ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ;
++-----------+----------------------------------------------------------------------------------------+-------+-------+------------+----------------------------------------------------------------------------------------+
+
+
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Minimum Clock to Output Times                                                                                                                                                                                            ;
++-----------+----------------------------------------------------------------------------------------+-------+-------+------------+----------------------------------------------------------------------------------------+
+; Data Port ; Clock Port                                                                             ; Rise  ; Fall  ; Clock Edge ; Clock Reference                                                                        ;
++-----------+----------------------------------------------------------------------------------------+-------+-------+------------+----------------------------------------------------------------------------------------+
+; J         ; Clk                                                                                    ; 3.625 ; 3.625 ; Rise       ; Clk                                                                                    ;
+; K         ; Clk                                                                                    ; 3.529 ; 3.529 ; Rise       ; Clk                                                                                    ;
+; X[*]      ; Clk                                                                                    ; 3.351 ; 3.351 ; Rise       ; Clk                                                                                    ;
+;  X[0]     ; Clk                                                                                    ; 3.351 ; 3.351 ; Rise       ; Clk                                                                                    ;
+;  X[2]     ; Clk                                                                                    ; 3.462 ; 3.462 ; Rise       ; Clk                                                                                    ;
+;  X[3]     ; Clk                                                                                    ; 3.458 ; 3.458 ; Rise       ; Clk                                                                                    ;
+; C         ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; 2.070 ;       ; Rise       ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ;
+; J         ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; 2.221 ; 2.221 ; Rise       ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ;
+; JK_res    ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; 2.601 ; 2.601 ; Rise       ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ;
+; K         ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; 1.972 ; 1.972 ; Rise       ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ;
+; X[*]      ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; 1.905 ;       ; Rise       ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ;
+;  X[1]     ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; 1.905 ;       ; Rise       ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ;
+; C         ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ;       ; 2.070 ; Fall       ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ;
+; J         ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; 2.221 ; 2.221 ; Fall       ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ;
+; K         ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; 1.972 ; 1.972 ; Fall       ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ;
+; X[*]      ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ;       ; 1.905 ; Fall       ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ;
+;  X[1]     ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ;       ; 1.905 ; Fall       ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ;
++-----------+----------------------------------------------------------------------------------------+-------+-------+------------+----------------------------------------------------------------------------------------+
+
+
++------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Multicorner Timing Analysis Summary                                                                                                                  ;
++-----------------------------------------------------------------------------------------+--------+--------+----------+---------+---------------------+
+; Clock                                                                                   ; Setup  ; Hold   ; Recovery ; Removal ; Minimum Pulse Width ;
++-----------------------------------------------------------------------------------------+--------+--------+----------+---------+---------------------+
+; Worst-case Slack                                                                        ; -2.465 ; -1.888 ; N/A      ; N/A     ; -1.941              ;
+;  Clk                                                                                    ; -1.103 ; -1.888 ; N/A      ; N/A     ; -1.941              ;
+;  lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; -2.465 ; -0.266 ; N/A      ; N/A     ; -0.742              ;
+; Design-wide TNS                                                                         ; -5.969 ; -4.749 ; 0.0      ; 0.0     ; -9.361              ;
+;  Clk                                                                                    ; -3.504 ; -4.620 ; N/A      ; N/A     ; -7.877              ;
+;  lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; -2.465 ; -0.266 ; N/A      ; N/A     ; -1.484              ;
++-----------------------------------------------------------------------------------------+--------+--------+----------+---------+---------------------+
+
+
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Clock to Output Times                                                                                                                                                                                                    ;
++-----------+----------------------------------------------------------------------------------------+-------+-------+------------+----------------------------------------------------------------------------------------+
+; Data Port ; Clock Port                                                                             ; Rise  ; Fall  ; Clock Edge ; Clock Reference                                                                        ;
++-----------+----------------------------------------------------------------------------------------+-------+-------+------------+----------------------------------------------------------------------------------------+
+; J         ; Clk                                                                                    ; 8.078 ; 8.078 ; Rise       ; Clk                                                                                    ;
+; K         ; Clk                                                                                    ; 7.939 ; 7.939 ; Rise       ; Clk                                                                                    ;
+; X[*]      ; Clk                                                                                    ; 7.306 ; 7.306 ; Rise       ; Clk                                                                                    ;
+;  X[0]     ; Clk                                                                                    ; 6.917 ; 6.917 ; Rise       ; Clk                                                                                    ;
+;  X[2]     ; Clk                                                                                    ; 7.087 ; 7.087 ; Rise       ; Clk                                                                                    ;
+;  X[3]     ; Clk                                                                                    ; 7.306 ; 7.306 ; Rise       ; Clk                                                                                    ;
+; C         ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; 4.851 ;       ; Rise       ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ;
+; J         ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; 5.343 ; 5.343 ; Rise       ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ;
+; JK_res    ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; 5.908 ; 5.908 ; Rise       ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ;
+; K         ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; 4.611 ; 4.611 ; Rise       ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ;
+; X[*]      ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; 4.233 ;       ; Rise       ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ;
+;  X[1]     ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; 4.233 ;       ; Rise       ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ;
+; C         ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ;       ; 4.851 ; Fall       ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ;
+; J         ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; 5.343 ; 5.343 ; Fall       ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ;
+; K         ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; 4.611 ; 4.611 ; Fall       ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ;
+; X[*]      ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ;       ; 4.233 ; Fall       ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ;
+;  X[1]     ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ;       ; 4.233 ; Fall       ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ;
++-----------+----------------------------------------------------------------------------------------+-------+-------+------------+----------------------------------------------------------------------------------------+
+
+
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Minimum Clock to Output Times                                                                                                                                                                                            ;
++-----------+----------------------------------------------------------------------------------------+-------+-------+------------+----------------------------------------------------------------------------------------+
+; Data Port ; Clock Port                                                                             ; Rise  ; Fall  ; Clock Edge ; Clock Reference                                                                        ;
++-----------+----------------------------------------------------------------------------------------+-------+-------+------------+----------------------------------------------------------------------------------------+
+; J         ; Clk                                                                                    ; 3.625 ; 3.625 ; Rise       ; Clk                                                                                    ;
+; K         ; Clk                                                                                    ; 3.529 ; 3.529 ; Rise       ; Clk                                                                                    ;
+; X[*]      ; Clk                                                                                    ; 3.351 ; 3.351 ; Rise       ; Clk                                                                                    ;
+;  X[0]     ; Clk                                                                                    ; 3.351 ; 3.351 ; Rise       ; Clk                                                                                    ;
+;  X[2]     ; Clk                                                                                    ; 3.462 ; 3.462 ; Rise       ; Clk                                                                                    ;
+;  X[3]     ; Clk                                                                                    ; 3.458 ; 3.458 ; Rise       ; Clk                                                                                    ;
+; C         ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; 2.070 ;       ; Rise       ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ;
+; J         ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; 2.221 ; 2.221 ; Rise       ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ;
+; JK_res    ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; 2.601 ; 2.601 ; Rise       ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ;
+; K         ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; 1.972 ; 1.972 ; Rise       ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ;
+; X[*]      ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; 1.905 ;       ; Rise       ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ;
+;  X[1]     ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; 1.905 ;       ; Rise       ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ;
+; C         ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ;       ; 2.070 ; Fall       ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ;
+; J         ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; 2.221 ; 2.221 ; Fall       ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ;
+; K         ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; 1.972 ; 1.972 ; Fall       ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ;
+; X[*]      ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ;       ; 1.905 ; Fall       ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ;
+;  X[1]     ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ;       ; 1.905 ; Fall       ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ;
++-----------+----------------------------------------------------------------------------------------+-------+-------+------------+----------------------------------------------------------------------------------------+
+
+
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Setup Transfers                                                                                                                                                                                                             ;
++----------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------+----------+----------+----------+----------+
+; From Clock                                                                             ; To Clock                                                                               ; RR Paths ; FR Paths ; RF Paths ; FF Paths ;
++----------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------+----------+----------+----------+----------+
+; Clk                                                                                    ; Clk                                                                                    ; 7        ; 0        ; 0        ; 0        ;
+; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; Clk                                                                                    ; 3        ; 3        ; 0        ; 0        ;
+; Clk                                                                                    ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; 5        ; 0        ; 0        ; 0        ;
+; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; 3        ; 2        ; 0        ; 0        ;
++----------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------+----------+----------+----------+----------+
+Entries labeled "false path" only account for clock-to-clock false paths and not path-based false paths. As a result, actual path counts may be lower than reported.
+
+
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Hold Transfers                                                                                                                                                                                                              ;
++----------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------+----------+----------+----------+----------+
+; From Clock                                                                             ; To Clock                                                                               ; RR Paths ; FR Paths ; RF Paths ; FF Paths ;
++----------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------+----------+----------+----------+----------+
+; Clk                                                                                    ; Clk                                                                                    ; 7        ; 0        ; 0        ; 0        ;
+; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; Clk                                                                                    ; 3        ; 3        ; 0        ; 0        ;
+; Clk                                                                                    ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; 5        ; 0        ; 0        ; 0        ;
+; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] ; 3        ; 2        ; 0        ; 0        ;
++----------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------+----------+----------+----------+----------+
+Entries labeled "false path" only account for clock-to-clock false paths and not path-based false paths. As a result, actual path counts may be lower than reported.
+
+
+---------------
+; Report TCCS ;
+---------------
+No dedicated SERDES Transmitter circuitry present in device or used in design
+
+
+---------------
+; Report RSKM ;
+---------------
+No dedicated SERDES Receiver circuitry present in device or used in design
+
+
++------------------------------------------------+
+; Unconstrained Paths                            ;
++---------------------------------+-------+------+
+; Property                        ; Setup ; Hold ;
++---------------------------------+-------+------+
+; Illegal Clocks                  ; 0     ; 0    ;
+; Unconstrained Clocks            ; 0     ; 0    ;
+; Unconstrained Input Ports       ; 1     ; 1    ;
+; Unconstrained Input Port Paths  ; 1     ; 1    ;
+; Unconstrained Output Ports      ; 8     ; 8    ;
+; Unconstrained Output Port Paths ; 13    ; 13   ;
++---------------------------------+-------+------+
+
+
++------------------------------------+
+; TimeQuest Timing Analyzer Messages ;
++------------------------------------+
+Info: *******************************************************************
+Info: Running Quartus II 64-Bit TimeQuest Timing Analyzer
+    Info: Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edition
+    Info: Processing started: Wed Feb 18 19:52:13 2026
+Info: Command: quartus_sta lab04_JK -c lab04_JK
+Info: qsta_default_script.tcl version: #1
+Warning (20028): Parallel compilation is not licensed and has been disabled
+Info (21077): Low junction temperature is 0 degrees C
+Info (21077): High junction temperature is 85 degrees C
+Critical Warning (332012): Synopsys Design Constraints File file not found: 'lab04_JK.sdc'. A Synopsys Design Constraints File is required by the TimeQuest Timing Analyzer to get proper timing constraints. Without it, the Compiler will not properly optimize the design.
+Info (332142): No user constrained base clocks found in the design. Calling "derive_clocks -period 1.0"
+Info (332105): Deriving Clocks
+    Info (332105): create_clock -period 1.000 -name Clk Clk
+    Info (332105): create_clock -period 1.000 -name lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1]
+Info: Found TIMEQUEST_REPORT_SCRIPT_INCLUDE_DEFAULT_ANALYSIS = ON
+Info: Analyzing Slow Model
+Critical Warning (332148): Timing requirements not met
+Info (332146): Worst-case setup slack is -2.465
+    Info (332119):     Slack End Point TNS Clock 
+    Info (332119): ========= ============= =====================
+    Info (332119):    -2.465        -2.465 lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] 
+    Info (332119):    -1.103        -3.504 Clk 
+Info (332146): Worst-case hold slack is -1.888
+    Info (332119):     Slack End Point TNS Clock 
+    Info (332119): ========= ============= =====================
+    Info (332119):    -1.888        -4.620 Clk 
+    Info (332119):    -0.129        -0.129 lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] 
+Info (332140): No Recovery paths to report
+Info (332140): No Removal paths to report
+Info (332146): Worst-case minimum pulse width slack is -1.941
+    Info (332119):     Slack End Point TNS Clock 
+    Info (332119): ========= ============= =====================
+    Info (332119):    -1.941        -7.877 Clk 
+    Info (332119):    -0.742        -1.484 lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] 
+Info (332001): The selected device family is not supported by the report_metastability command.
+Info: Analyzing Fast Model
+Critical Warning (332148): Timing requirements not met
+Info (332146): Worst-case setup slack is -0.530
+    Info (332119):     Slack End Point TNS Clock 
+    Info (332119): ========= ============= =====================
+    Info (332119):    -0.530        -0.530 lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] 
+    Info (332119):     0.308         0.000 Clk 
+Info (332146): Worst-case hold slack is -1.240
+    Info (332119):     Slack End Point TNS Clock 
+    Info (332119): ========= ============= =====================
+    Info (332119):    -1.240        -3.409 Clk 
+    Info (332119):    -0.266        -0.266 lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] 
+Info (332140): No Recovery paths to report
+Info (332140): No Removal paths to report
+Info (332146): Worst-case minimum pulse width slack is -1.380
+    Info (332119):     Slack End Point TNS Clock 
+    Info (332119): ========= ============= =====================
+    Info (332119):    -1.380        -5.380 Clk 
+    Info (332119):    -0.500        -1.000 lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1] 
+Info (332001): The selected device family is not supported by the report_metastability command.
+Info (332102): Design is not fully constrained for setup requirements
+Info (332102): Design is not fully constrained for hold requirements
+Info: Quartus II 64-Bit TimeQuest Timing Analyzer was successful. 0 errors, 4 warnings
+    Info: Peak virtual memory: 4544 megabytes
+    Info: Processing ended: Wed Feb 18 19:52:13 2026
+    Info: Elapsed time: 00:00:00
+    Info: Total CPU time (on all processors): 00:00:01
+
+

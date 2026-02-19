@@ -1,0 +1,416 @@
+|lab04
+dinamic_D <= inst6.DB_MAX_OUTPUT_PORT_TYPE
+Clk => lpm_counter0:inst4.clock
+PRN => inst6.PRESET
+PRN => inst5.PRESET
+static_D <= inst5.DB_MAX_OUTPUT_PORT_TYPE
+C <= F[1].DB_MAX_OUTPUT_PORT_TYPE
+D <= F[0].DB_MAX_OUTPUT_PORT_TYPE
+X[0] <= lpm_counter0:inst4.q[0]
+X[1] <= lpm_counter0:inst4.q[1]
+X[2] <= lpm_counter0:inst4.q[2]
+X[3] <= lpm_counter0:inst4.q[3]
+
+
+|lab04|lpm_mux0:inst3
+data0x[0] => LPM_MUX:LPM_MUX_component.DATA[0][0]
+data0x[1] => LPM_MUX:LPM_MUX_component.DATA[0][1]
+data10x[0] => LPM_MUX:LPM_MUX_component.DATA[10][0]
+data10x[1] => LPM_MUX:LPM_MUX_component.DATA[10][1]
+data11x[0] => LPM_MUX:LPM_MUX_component.DATA[11][0]
+data11x[1] => LPM_MUX:LPM_MUX_component.DATA[11][1]
+data12x[0] => LPM_MUX:LPM_MUX_component.DATA[12][0]
+data12x[1] => LPM_MUX:LPM_MUX_component.DATA[12][1]
+data13x[0] => LPM_MUX:LPM_MUX_component.DATA[13][0]
+data13x[1] => LPM_MUX:LPM_MUX_component.DATA[13][1]
+data14x[0] => LPM_MUX:LPM_MUX_component.DATA[14][0]
+data14x[1] => LPM_MUX:LPM_MUX_component.DATA[14][1]
+data15x[0] => LPM_MUX:LPM_MUX_component.DATA[15][0]
+data15x[1] => LPM_MUX:LPM_MUX_component.DATA[15][1]
+data1x[0] => LPM_MUX:LPM_MUX_component.DATA[1][0]
+data1x[1] => LPM_MUX:LPM_MUX_component.DATA[1][1]
+data2x[0] => LPM_MUX:LPM_MUX_component.DATA[2][0]
+data2x[1] => LPM_MUX:LPM_MUX_component.DATA[2][1]
+data3x[0] => LPM_MUX:LPM_MUX_component.DATA[3][0]
+data3x[1] => LPM_MUX:LPM_MUX_component.DATA[3][1]
+data4x[0] => LPM_MUX:LPM_MUX_component.DATA[4][0]
+data4x[1] => LPM_MUX:LPM_MUX_component.DATA[4][1]
+data5x[0] => LPM_MUX:LPM_MUX_component.DATA[5][0]
+data5x[1] => LPM_MUX:LPM_MUX_component.DATA[5][1]
+data6x[0] => LPM_MUX:LPM_MUX_component.DATA[6][0]
+data6x[1] => LPM_MUX:LPM_MUX_component.DATA[6][1]
+data7x[0] => LPM_MUX:LPM_MUX_component.DATA[7][0]
+data7x[1] => LPM_MUX:LPM_MUX_component.DATA[7][1]
+data8x[0] => LPM_MUX:LPM_MUX_component.DATA[8][0]
+data8x[1] => LPM_MUX:LPM_MUX_component.DATA[8][1]
+data9x[0] => LPM_MUX:LPM_MUX_component.DATA[9][0]
+data9x[1] => LPM_MUX:LPM_MUX_component.DATA[9][1]
+sel[0] => LPM_MUX:LPM_MUX_component.SEL[0]
+sel[1] => LPM_MUX:LPM_MUX_component.SEL[1]
+sel[2] => LPM_MUX:LPM_MUX_component.SEL[2]
+sel[3] => LPM_MUX:LPM_MUX_component.SEL[3]
+result[0] <= LPM_MUX:LPM_MUX_component.RESULT[0]
+result[1] <= LPM_MUX:LPM_MUX_component.RESULT[1]
+
+
+|lab04|lpm_mux0:inst3|LPM_MUX:LPM_MUX_component
+data[0][0] => mux_p4e:auto_generated.data[0]
+data[0][1] => mux_p4e:auto_generated.data[1]
+data[1][0] => mux_p4e:auto_generated.data[2]
+data[1][1] => mux_p4e:auto_generated.data[3]
+data[2][0] => mux_p4e:auto_generated.data[4]
+data[2][1] => mux_p4e:auto_generated.data[5]
+data[3][0] => mux_p4e:auto_generated.data[6]
+data[3][1] => mux_p4e:auto_generated.data[7]
+data[4][0] => mux_p4e:auto_generated.data[8]
+data[4][1] => mux_p4e:auto_generated.data[9]
+data[5][0] => mux_p4e:auto_generated.data[10]
+data[5][1] => mux_p4e:auto_generated.data[11]
+data[6][0] => mux_p4e:auto_generated.data[12]
+data[6][1] => mux_p4e:auto_generated.data[13]
+data[7][0] => mux_p4e:auto_generated.data[14]
+data[7][1] => mux_p4e:auto_generated.data[15]
+data[8][0] => mux_p4e:auto_generated.data[16]
+data[8][1] => mux_p4e:auto_generated.data[17]
+data[9][0] => mux_p4e:auto_generated.data[18]
+data[9][1] => mux_p4e:auto_generated.data[19]
+data[10][0] => mux_p4e:auto_generated.data[20]
+data[10][1] => mux_p4e:auto_generated.data[21]
+data[11][0] => mux_p4e:auto_generated.data[22]
+data[11][1] => mux_p4e:auto_generated.data[23]
+data[12][0] => mux_p4e:auto_generated.data[24]
+data[12][1] => mux_p4e:auto_generated.data[25]
+data[13][0] => mux_p4e:auto_generated.data[26]
+data[13][1] => mux_p4e:auto_generated.data[27]
+data[14][0] => mux_p4e:auto_generated.data[28]
+data[14][1] => mux_p4e:auto_generated.data[29]
+data[15][0] => mux_p4e:auto_generated.data[30]
+data[15][1] => mux_p4e:auto_generated.data[31]
+sel[0] => mux_p4e:auto_generated.sel[0]
+sel[1] => mux_p4e:auto_generated.sel[1]
+sel[2] => mux_p4e:auto_generated.sel[2]
+sel[3] => mux_p4e:auto_generated.sel[3]
+clock => ~NO_FANOUT~
+aclr => ~NO_FANOUT~
+clken => ~NO_FANOUT~
+result[0] <= mux_p4e:auto_generated.result[0]
+result[1] <= mux_p4e:auto_generated.result[1]
+
+
+|lab04|lpm_mux0:inst3|LPM_MUX:LPM_MUX_component|mux_p4e:auto_generated
+data[0] => _.IN0
+data[0] => _.IN0
+data[0] => _.IN0
+data[0] => _.IN0
+data[1] => _.IN0
+data[1] => _.IN0
+data[1] => _.IN0
+data[1] => _.IN0
+data[2] => _.IN0
+data[2] => _.IN0
+data[3] => _.IN0
+data[3] => _.IN0
+data[4] => _.IN1
+data[4] => _.IN1
+data[4] => _.IN1
+data[4] => _.IN1
+data[5] => _.IN1
+data[5] => _.IN1
+data[5] => _.IN1
+data[5] => _.IN1
+data[6] => _.IN0
+data[6] => _.IN0
+data[7] => _.IN0
+data[7] => _.IN0
+data[8] => _.IN0
+data[8] => _.IN0
+data[9] => _.IN0
+data[9] => _.IN0
+data[10] => _.IN0
+data[11] => _.IN0
+data[12] => _.IN1
+data[12] => _.IN1
+data[13] => _.IN1
+data[13] => _.IN1
+data[14] => _.IN0
+data[15] => _.IN0
+data[16] => _.IN0
+data[16] => _.IN0
+data[16] => _.IN0
+data[16] => _.IN0
+data[17] => _.IN0
+data[17] => _.IN0
+data[17] => _.IN0
+data[17] => _.IN0
+data[18] => _.IN0
+data[18] => _.IN0
+data[19] => _.IN0
+data[19] => _.IN0
+data[20] => _.IN1
+data[20] => _.IN1
+data[20] => _.IN1
+data[20] => _.IN1
+data[21] => _.IN1
+data[21] => _.IN1
+data[21] => _.IN1
+data[21] => _.IN1
+data[22] => _.IN0
+data[22] => _.IN0
+data[23] => _.IN0
+data[23] => _.IN0
+data[24] => _.IN0
+data[24] => _.IN0
+data[25] => _.IN0
+data[25] => _.IN0
+data[26] => _.IN0
+data[27] => _.IN0
+data[28] => _.IN1
+data[28] => _.IN1
+data[29] => _.IN1
+data[29] => _.IN1
+data[30] => _.IN0
+data[31] => _.IN0
+result[0] <= result_node[0].DB_MAX_OUTPUT_PORT_TYPE
+result[1] <= result_node[1].DB_MAX_OUTPUT_PORT_TYPE
+sel[0] => _.IN1
+sel[0] => _.IN0
+sel[0] => _.IN0
+sel[0] => _.IN0
+sel[0] => _.IN0
+sel[0] => _.IN0
+sel[0] => _.IN1
+sel[0] => _.IN0
+sel[0] => _.IN0
+sel[0] => _.IN0
+sel[0] => _.IN0
+sel[0] => _.IN0
+sel[0] => _.IN1
+sel[0] => _.IN0
+sel[0] => _.IN0
+sel[0] => _.IN0
+sel[0] => _.IN0
+sel[0] => _.IN0
+sel[0] => _.IN1
+sel[0] => _.IN0
+sel[0] => _.IN0
+sel[0] => _.IN0
+sel[0] => _.IN0
+sel[0] => _.IN0
+sel[0] => _.IN1
+sel[0] => _.IN0
+sel[0] => _.IN0
+sel[0] => _.IN0
+sel[0] => _.IN0
+sel[0] => _.IN0
+sel[0] => _.IN1
+sel[0] => _.IN0
+sel[0] => _.IN0
+sel[0] => _.IN0
+sel[0] => _.IN0
+sel[0] => _.IN0
+sel[0] => _.IN1
+sel[0] => _.IN0
+sel[0] => _.IN0
+sel[0] => _.IN0
+sel[0] => _.IN0
+sel[0] => _.IN0
+sel[0] => _.IN1
+sel[0] => _.IN0
+sel[0] => _.IN0
+sel[0] => _.IN0
+sel[0] => _.IN0
+sel[0] => _.IN0
+sel[0] => _.IN1
+sel[0] => _.IN0
+sel[0] => _.IN0
+sel[0] => _.IN0
+sel[0] => _.IN0
+sel[0] => _.IN0
+sel[0] => _.IN1
+sel[0] => _.IN0
+sel[0] => _.IN0
+sel[0] => _.IN0
+sel[0] => _.IN0
+sel[0] => _.IN0
+sel[0] => _.IN1
+sel[0] => _.IN0
+sel[0] => _.IN0
+sel[0] => _.IN0
+sel[0] => _.IN0
+sel[0] => _.IN0
+sel[0] => _.IN1
+sel[0] => _.IN0
+sel[0] => _.IN0
+sel[0] => _.IN0
+sel[0] => _.IN0
+sel[0] => _.IN0
+sel[1] => _.IN0
+sel[1] => _.IN0
+sel[1] => _.IN0
+sel[1] => _.IN0
+sel[1] => _.IN0
+sel[1] => _.IN0
+sel[1] => _.IN0
+sel[1] => _.IN0
+sel[1] => _.IN0
+sel[1] => _.IN0
+sel[1] => _.IN0
+sel[1] => _.IN0
+sel[1] => _.IN0
+sel[1] => _.IN0
+sel[1] => _.IN0
+sel[1] => _.IN0
+sel[1] => _.IN0
+sel[1] => _.IN0
+sel[1] => _.IN0
+sel[1] => _.IN0
+sel[1] => _.IN0
+sel[1] => _.IN0
+sel[1] => _.IN0
+sel[1] => _.IN0
+sel[1] => _.IN0
+sel[1] => _.IN0
+sel[1] => _.IN0
+sel[1] => _.IN0
+sel[1] => _.IN0
+sel[1] => _.IN0
+sel[1] => _.IN0
+sel[1] => _.IN0
+sel[1] => _.IN0
+sel[1] => _.IN0
+sel[1] => _.IN0
+sel[1] => _.IN0
+sel[1] => _.IN0
+sel[1] => _.IN0
+sel[1] => _.IN0
+sel[1] => _.IN0
+sel[1] => _.IN0
+sel[1] => _.IN0
+sel[1] => _.IN0
+sel[1] => _.IN0
+sel[1] => _.IN0
+sel[1] => _.IN0
+sel[1] => _.IN0
+sel[1] => _.IN0
+sel[2] => _.IN1
+sel[2] => _.IN0
+sel[2] => _.IN0
+sel[2] => _.IN0
+sel[2] => _.IN0
+sel[2] => _.IN0
+sel[2] => _.IN1
+sel[2] => _.IN0
+sel[2] => _.IN0
+sel[2] => _.IN0
+sel[2] => _.IN0
+sel[2] => _.IN0
+sel[3] => _.IN0
+sel[3] => _.IN0
+sel[3] => _.IN0
+sel[3] => _.IN0
+sel[3] => _.IN0
+sel[3] => _.IN0
+sel[3] => _.IN0
+sel[3] => _.IN0
+
+
+|lab04|lpm_constant1:inst2
+result[0] <= lpm_constant:LPM_CONSTANT_component.result[0]
+result[1] <= lpm_constant:LPM_CONSTANT_component.result[1]
+
+
+|lab04|lpm_constant1:inst2|lpm_constant:LPM_CONSTANT_component
+result[0] <= <VCC>
+result[1] <= <GND>
+
+
+|lab04|lpm_constant3:inst9
+result[0] <= lpm_constant:LPM_CONSTANT_component.result[0]
+result[1] <= lpm_constant:LPM_CONSTANT_component.result[1]
+
+
+|lab04|lpm_constant3:inst9|lpm_constant:LPM_CONSTANT_component
+result[0] <= <VCC>
+result[1] <= <VCC>
+
+
+|lab04|lpm_constant2:inst8
+result[0] <= lpm_constant:LPM_CONSTANT_component.result[0]
+result[1] <= lpm_constant:LPM_CONSTANT_component.result[1]
+
+
+|lab04|lpm_constant2:inst8|lpm_constant:LPM_CONSTANT_component
+result[0] <= <GND>
+result[1] <= <VCC>
+
+
+|lab04|lpm_constant0:inst
+result[0] <= lpm_constant:LPM_CONSTANT_component.result[0]
+result[1] <= lpm_constant:LPM_CONSTANT_component.result[1]
+
+
+|lab04|lpm_constant0:inst|lpm_constant:LPM_CONSTANT_component
+result[0] <= <GND>
+result[1] <= <GND>
+
+
+|lab04|lpm_counter0:inst4
+clock => lpm_counter:LPM_COUNTER_component.clock
+q[0] <= lpm_counter:LPM_COUNTER_component.q[0]
+q[1] <= lpm_counter:LPM_COUNTER_component.q[1]
+q[2] <= lpm_counter:LPM_COUNTER_component.q[2]
+q[3] <= lpm_counter:LPM_COUNTER_component.q[3]
+
+
+|lab04|lpm_counter0:inst4|lpm_counter:LPM_COUNTER_component
+clock => cntr_okh:auto_generated.clock
+clk_en => ~NO_FANOUT~
+cnt_en => ~NO_FANOUT~
+updown => ~NO_FANOUT~
+aclr => ~NO_FANOUT~
+aset => ~NO_FANOUT~
+aconst => ~NO_FANOUT~
+aload => ~NO_FANOUT~
+sclr => ~NO_FANOUT~
+sset => ~NO_FANOUT~
+sconst => ~NO_FANOUT~
+sload => ~NO_FANOUT~
+data[0] => ~NO_FANOUT~
+data[1] => ~NO_FANOUT~
+data[2] => ~NO_FANOUT~
+data[3] => ~NO_FANOUT~
+cin => ~NO_FANOUT~
+q[0] <= cntr_okh:auto_generated.q[0]
+q[1] <= cntr_okh:auto_generated.q[1]
+q[2] <= cntr_okh:auto_generated.q[2]
+q[3] <= cntr_okh:auto_generated.q[3]
+cout <= <GND>
+eq[0] <= <GND>
+eq[1] <= <GND>
+eq[2] <= <GND>
+eq[3] <= <GND>
+eq[4] <= <GND>
+eq[5] <= <GND>
+eq[6] <= <GND>
+eq[7] <= <GND>
+eq[8] <= <GND>
+eq[9] <= <GND>
+eq[10] <= <GND>
+eq[11] <= <GND>
+eq[12] <= <GND>
+eq[13] <= <GND>
+eq[14] <= <GND>
+eq[15] <= <GND>
+
+
+|lab04|lpm_counter0:inst4|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated
+clock => counter_reg_bit1a[3].CLK
+clock => counter_reg_bit1a[2].CLK
+clock => counter_reg_bit1a[1].CLK
+clock => counter_reg_bit1a[0].CLK
+q[0] <= counter_reg_bit1a[0].REGOUT
+q[1] <= counter_reg_bit1a[1].REGOUT
+q[2] <= counter_reg_bit1a[2].REGOUT
+q[3] <= counter_reg_bit1a[3].REGOUT
+
+

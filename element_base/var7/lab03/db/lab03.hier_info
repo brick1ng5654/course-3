@@ -1,0 +1,21 @@
+|lab03
+Y[0] <= inst3.DB_MAX_OUTPUT_PORT_TYPE
+Y[1] <= inst6.DB_MAX_OUTPUT_PORT_TYPE
+Y[2] <= inst8.DB_MAX_OUTPUT_PORT_TYPE
+Y[3] <= inst10.DB_MAX_OUTPUT_PORT_TYPE
+X[0] => inst.IN0
+X[0] => inst2.IN1
+X[1] => inst.IN1
+X[1] => inst2.IN0
+X[1] => inst4.IN0
+X[1] => inst5.IN1
+X[2] => inst4.IN1
+X[2] => inst5.IN0
+X[2] => inst7.IN0
+X[2] => inst9.IN1
+X[3] => inst7.IN1
+X[3] => inst9.IN0
+X[3] => inst10.IN0
+X[3] => inst10.IN1
+
+

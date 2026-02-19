@@ -1,0 +1,53 @@
+------------------------------------------------------------
+TimeQuest Timing Analyzer Summary
+------------------------------------------------------------
+
+Type  : Slow Model Setup 'lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1]'
+Slack : -2.465
+TNS   : -2.465
+
+Type  : Slow Model Setup 'Clk'
+Slack : -1.103
+TNS   : -3.504
+
+Type  : Slow Model Hold 'Clk'
+Slack : -1.888
+TNS   : -4.620
+
+Type  : Slow Model Hold 'lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1]'
+Slack : -0.129
+TNS   : -0.129
+
+Type  : Slow Model Minimum Pulse Width 'Clk'
+Slack : -1.941
+TNS   : -7.877
+
+Type  : Slow Model Minimum Pulse Width 'lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1]'
+Slack : -0.742
+TNS   : -1.484
+
+Type  : Fast Model Setup 'lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1]'
+Slack : -0.530
+TNS   : -0.530
+
+Type  : Fast Model Setup 'Clk'
+Slack : 0.308
+TNS   : 0.000
+
+Type  : Fast Model Hold 'Clk'
+Slack : -1.240
+TNS   : -3.409
+
+Type  : Fast Model Hold 'lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1]'
+Slack : -0.266
+TNS   : -0.266
+
+Type  : Fast Model Minimum Pulse Width 'Clk'
+Slack : -1.380
+TNS   : -5.380
+
+Type  : Fast Model Minimum Pulse Width 'lpm_counter0:inst2|lpm_counter:LPM_COUNTER_component|cntr_okh:auto_generated|safe_q[1]'
+Slack : -0.500
+TNS   : -1.000
+
+------------------------------------------------------------
